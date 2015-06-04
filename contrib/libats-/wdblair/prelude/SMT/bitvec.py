@@ -1,5 +1,11 @@
 import patsolve
 
+def is_power_of_2_bv32 (x):
+    """
+    A 32 bitvector x is a power of two.
+    """
+    return reduce(Or, (x == (1 << i) for i in range(32)))
+
 def bv32_of_bool (x):
     """
     Casting bool to bit vectors.
@@ -17,12 +23,6 @@ def min_bv32_bv32 (x, y):
     Choose the min of x and y
     """
     return If (x < y, x, y)
-
-def is_power_of_2_bv32 (x):
-    """
-    A 32 bitvector x is a power of two.
-    """
-    return reduce(Or, (x == (1 << i) for i in range(32)))
 
 def has_zero_byte_bv32 (x):
     """
