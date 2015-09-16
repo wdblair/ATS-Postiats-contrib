@@ -1,6 +1,6 @@
 ##
-## ATS-extsolve-z3:
-## Solving ATS-constraints with Z3
+## ATS-extsolve-smt:
+## Solving ATS-constraints with SMT
 ##
 
 ######
@@ -60,19 +60,17 @@ CFLAGS2 += $(shell pkg-config --cflags json-c)
 #
 ######
 
-EXTRA_CFLAGS :=
-
-######
-
-PATSCC2=$(PATSCC) $(CFLAGS2) $(EXTRA_CFLAGS)
+PATSCC2=$(PATSCC) $(CFLAGS2)
 
 ######
 
 LDFLAGS :=
 LDFLAGS += $(shell pkg-config --libs json-c)
-LDFLAGS += -L $(HOME)/.pyenv/versions/2.7.10/lib/python2.7/site-packages/
-LDFLAGS +=-lz3
 LDFLAGS +=-lgc
+
+######
+
+EXTRAFLAGS :=
 
 ######
 
@@ -99,10 +97,10 @@ SOURCES_CATS= \
 ######
 
 SOURCES_DATS :=
-SOURCES_DATS += patsolve_z3_main.dats
-SOURCES_DATS += patsolve_z3_mylib.dats
-SOURCES_DATS += patsolve_z3_commarg.dats
-SOURCES_DATS += patsolve_z3_solving.dats
+SOURCES_DATS += patsolve_smt_main.dats
+SOURCES_DATS += patsolve_smt_mylib.dats
+SOURCES_DATS += patsolve_smt_commarg.dats
+SOURCES_DATS += patsolve_smt_solving.dats
 
 ######
 
@@ -112,13 +110,13 @@ TARGETS_DATS_O = \
 ######
 #
 all:: \
-patsolve_z3
-patsolve_z3: \
+patsolve_smt
+patsolve_smt: \
 $(TARGETS_DATS_O); \
 $(PATSCC2) -O2 -o $@ \
   $(SOURCES_SATS) $(SOURCES_CATS) $(TARGETS_DATS_O) $(LDFLAGS)
 #
-cleanall:: ; $(RMF) patsolve_z3
+cleanall:: ; $(RMF) patsolve_smt
 #
 ######
 
@@ -141,7 +139,7 @@ endif
 #
 ######
 #
-PATSOLVE_source=$(HOME)/work/ats2-contrib/projects/MEDIUM/ATS-extsolve
+PATSOLVE_source=../ATS-extsolve
 #
 pkgreloc:: ; \
 $(CPF) $(PATSOLVE_source)/patsolve_cnstrnt.sats $(PATSOLVE)/.
@@ -155,7 +153,7 @@ $(CPF) $(PATSOLVE_source)/CATS/patsolve_parsing_dats.c $(PATSOLVE)/.
 ######
 
 build:: pkgreloc
-build:: patsolve_z3
+build:: patsolve_smt
 
 ######
 
