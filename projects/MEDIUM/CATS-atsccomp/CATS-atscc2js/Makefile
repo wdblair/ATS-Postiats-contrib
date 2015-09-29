@@ -10,8 +10,6 @@ MAKE=make
 
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
-PATSCCOMP=emcc -I $(PATSHOME) -I $(PATSHOME)/ccomp/runtime
-######
 
 all::
 
@@ -38,6 +36,7 @@ SOURCES_CATS += $(CATSPARSEMIT)/catsparse_include_all_dats.c
 all:: \
 atscc2js.js
 atscc2js.js: $(SOURCES_DATS)
+	PATSCCOMP="emcc -I $(PATSHOME) -I $(PATSHOME)/ccomp/runtime" \
 	$(PATSCC) -DATS_MEMALLOC_LIBC -O2 -o $@ \
 	$(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS)
 #
