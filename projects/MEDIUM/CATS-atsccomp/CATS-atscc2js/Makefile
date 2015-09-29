@@ -10,7 +10,7 @@ MAKE=make
 
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
-
+PATSCCOMP=emcc -I $(PATSHOME) -I $(PATSHOME)/ccomp/runtime
 ######
 
 all::
@@ -36,12 +36,10 @@ SOURCES_CATS += $(CATSPARSEMIT)/catsparse_include_all_dats.c
 ######
 #
 all:: \
-atscc2js
-atscc2js: \
-$(SOURCES_DATS); \
-$(PATSCC) \
-  -DATS_MEMALLOC_GCBDW -O2 -o $@ \
-  $(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS) -lgc
+atscc2js.js
+atscc2js.js: $(SOURCES_DATS)
+	$(PATSCC) -DATS_MEMALLOC_LIBC -O2 -o $@ \
+	$(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS)
 #
 ######
 
@@ -63,7 +61,7 @@ $(CPF) $(CATSPARSEMIT_source)/CATS/catsparse_*_dats.c $(CATSPARSEMIT)/.
 ######
 #
 build:: pkgreloc
-build:: atscc2js
+build:: atscc2js.js
 #
 testall:: build
 testall:: cleanall
@@ -77,7 +75,7 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) ./atscc2js
+cleanall:: ; $(RMF) ./atscc2js.js
 cleanall:: ; $(RMF) ./.CATS-parsemit/*
 
 ###### end of [Makefile] ######
