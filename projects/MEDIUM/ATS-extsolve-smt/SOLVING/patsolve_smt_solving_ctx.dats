@@ -19,16 +19,11 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
-abst@ype smt_context = {
-    control
-    output
-}
-
 extern
-fun
+prfun
 the_smt_context_vget
 (
 // argumentless
 ) : (
-  smt_context -<prf> void | smt_context
+  smt_context -<prf> void | 
 ) = "ext#patsolve_the_smt_context_vget"
