@@ -40,6 +40,14 @@ vtypedef func_decl = func_decl_vtype
 //
 (* ****** ****** *)
 //
+datavtype Ast(a:vt@ype+) =
+  | Atom of (a)
+  | Apply of (a, List0_vt(Ast(a)))
+  
+vtypedef SMTAst = Ast(Strptr1)
+//
+(* ****** ****** *)
+//
 typedef lbool = int
 //
 macdef ltrue = 1
@@ -53,6 +61,9 @@ fun sort_incref (!sort): sort
 //
 fun formula_decref (form): void
 fun formula_incref (!form): form
+//
+overload .decref with formula_decref
+overload .incref with formula_incref
 //
 (* ****** ****** *)
 //
@@ -98,7 +109,9 @@ fun sort_error (s2rt): sort
 fun sort_make_s2rt (s2rt): sort
 //
 (* ****** ****** *)
-
+//
+fun sort_to_smtlib (sort): SMTAst
+//
 fun formula_null (): form
 
 fun formula_true (): form
@@ -198,6 +211,10 @@ fun
 func_decl_list
   (name: string, domain: sortlst, range: sort): func_decl
 //
+fun
+func_decl_to_smtlib
+  (fd: func_decl): SMTAst
+  
 (* ****** ****** *)
 //
 fun
@@ -208,6 +225,11 @@ fun
 formula_fdapp_2(fd: func_decl, a0: form, a1: form): form
 fun
 formula_fdapp_list(fd: func_decl, args: formlst): form
+//
+(* ****** ****** *)
+//
+fun
+formula_to_smtlib(f: form): SMTAst
 //
 (* ****** ****** *)
 
@@ -229,6 +251,10 @@ fun
 s2var_top_payload(s2var): form
 fun
 s2var_push_payload(s2var, form): void
+//
+overload .pop_payload with s2var_pop_payload
+overload .top_payload with s2var_top_payload
+overload .push_payload with s2var_push_payload
 //
 (* ****** ****** *)
 //
