@@ -35,6 +35,12 @@ assume func_decl_vtype = ref(func_decl_record)
 
 (* ****** ****** *)
 
+implement
+formula_to_smtlib 
+  (f) = f
+  
+(* ****** ****** *)
+
 fun formlst_to_smtlib
   (fs: formlst): SMTAst = let
     val opr = copy("")
@@ -50,7 +56,7 @@ formula_decref
     case+ ast of
       | ~Atom (a) => strptr_free(a)
       | ~Apply (opr, args) => let
-        val () = strptr_free(opr)
+        val () = free(opr)
         implement
         list_vt_freelin$clear<SMTAst>(x) = $effmask_all(
           formula_decref(x)
@@ -75,7 +81,7 @@ formula_incref
         implement 
         list_vt_map$fopr<SMTAst><SMTAst>(x) =
           formula_incref(x)
-        val args2 = list_vt_map(args)
+        val args2 = list_vt_map<SMTAst><SMTAst>(args)
         val ast2 = Apply(opr2, args2)
       }
       
@@ -86,6 +92,13 @@ formula_null
   ((*void*)) = formula_int(0)
   
 (* ****** ****** *)
+
+implement
+formula_true() = tt where
+{
+  val f = string0_copy("true")
+  val tt = Atom(f)
+}
 
 implement
 formula_false() = tt where
@@ -213,6 +226,14 @@ formula_idiv
 }
 
 implement
+formula_ndiv
+  (x, y) = res where
+{
+  val opr = string0_copy("div")
+  val res = Apply(opr, x::y::nil)
+}
+
+implement
 formula_ilt
   (x, y) = res where
 {
@@ -253,7 +274,7 @@ formula_ieq
 }
 
 implement
-formula_ilt
+formula_ineq
   (x, y) =
   formula_not(formula_ieq(x, y))
   
@@ -425,6 +446,14 @@ val opr = copy(fd->symbol)
 val res = Apply(opr, arg :: nil)
 //
 } // end of [formula_fdapp_1]
+
+implement
+formula_fdapp_list
+  (f, args) = res where
+{
+  val name = f->symbol
+  val res = Apply(copy(name), args)
+} // end of [formula_fdapp_list]
 
 implement
 func_decl_list
@@ -1167,3 +1196,44 @@ of // case+
 end // end of [formula_make_s2exp]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+formulas_make_s2explst
+  (env, s2es) = (
+//
+case+ s2es of
+| list_nil
+    ((*void*)) => list_vt_nil()
+| list_cons
+    (s2e, s2es) => let
+    val s2e = formula_make_s2exp(env, s2e)
+    val s2es = formulas_make_s2explst(env, s2es)
+  in
+    list_vt_cons(s2e, s2es)
+  end // end of [list_cons]
+//
+) (* end of [formulas_make_s2explst] *)
+
+(* ****** ****** *)
+
+implement
+formulas_make_labs2explst
+  (env, ls2es) = (
+//
+case+ ls2es of
+| list_nil
+    ((*void*)) => list_vt_nil()
+| list_cons
+    (ls2e, ls2es) => let
+    val+SLABELED(l, s2e) = ls2e
+    val s2e = formula_make_s2exp(env, s2e)
+    val s2es = formulas_make_labs2explst(env, ls2es)
+  in
+    list_vt_cons(s2e, s2es)
+  end // end of [list_cons]
+//
+) (* end of [formulas_make_s2explst] *)
+
+(* ****** ****** *)

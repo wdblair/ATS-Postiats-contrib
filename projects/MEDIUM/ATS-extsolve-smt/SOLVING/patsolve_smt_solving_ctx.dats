@@ -18,12 +18,3 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
-extern
-prfun
-the_smt_context_vget
-(
-// argumentless
-) : (
-  smt_context -<prf> void | 
-) = "ext#patsolve_the_smt_context_vget"
