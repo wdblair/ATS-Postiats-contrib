@@ -46,6 +46,11 @@ datavtype Ast(a:vt@ype+) =
   
 vtypedef SMTAst = Ast(Strptr1)
 //
+fun
+smtlib_to_string(SMTAst): Strptr1
+
+overload .to_string with smtlib_to_string
+//
 (* ****** ****** *)
 //
 typedef lbool = int
@@ -97,9 +102,11 @@ fun sort_mk_view (): sort
 fun sort_mk_tkind (): sort
 //
 (* ****** ****** *)
-
-fun sort_mk_abstract(name: string): sort
-
+//
+fun sort_declare_abstract(name: string): void
+//
+fun sort_mk_abstract (name: string): sort
+//
 (* ****** ****** *)
 //
 fun sort_error (s2rt): sort
@@ -214,7 +221,7 @@ func_decl_list
 fun
 func_decl_to_smtlib
   (fd: func_decl): SMTAst
-  
+
 (* ****** ****** *)
 //
 fun

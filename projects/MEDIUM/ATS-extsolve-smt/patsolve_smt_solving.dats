@@ -350,6 +350,13 @@ c3nstr_smt_solve
 val env = smtenv_create()
 //
 var unsolved: uint = 0u and err: int = 0
+val () = begin
+  sort_declare_abstract("cls");
+  sort_declare_abstract("eff");
+  sort_declare_abstract("type");  
+  sort_declare_abstract("t0ype");
+  sort_declare_abstract("tkind");
+end
 val _(*ans*) = c3nstr_solve_main (env, c3t0, unsolved, err)
 //
 val ((*void*)) = smtenv_destroy (env)
@@ -417,6 +424,16 @@ end // end of [local]
 local
 //
 #include "./SOLVING/patsolve_smt_solving_smtenv.dats"
+//
+in
+  // nothing
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include "./SOLVING/patsolve_smt_solving_smtlib.dats"
 //
 in
   // nothing
