@@ -157,9 +157,15 @@ build:: patsolve_smt
 
 ######
 
+testall:: deps
 testall:: build all
 testall:: test
 testall:: cleanall
+
+######
+
+deps:
+	make -C ../ATS-extsolve DATS_C
 
 ######
 
