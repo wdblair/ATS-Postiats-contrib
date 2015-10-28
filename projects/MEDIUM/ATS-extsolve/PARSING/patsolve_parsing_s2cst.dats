@@ -48,6 +48,15 @@ myhashtbl_insert(the_s2cstmap, s2c.stamp(), s2c)
 //
 } (* end of [the_s2cstmap_insert] *)
 //
+implement
+the_s2cstmap_listize () = let
+  val keymap = myhashtbl_listize1 (the_s2cstmap)
+in
+  list_of_list_vt(
+    list_map_fun<@(stamp,s2cst)><s2cst>(keymap, lam x => x.1)
+  )
+end (* end of [the_s2cstmap_listize] *)
+//
 end // end of [local]
 
 (* ****** ****** *)

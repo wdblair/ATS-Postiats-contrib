@@ -123,6 +123,7 @@ val () = insert("null_addr", S2CINTbuiltin_0(formula_null))
 //
 val () = insert("true_bool", S2CINTbuiltin_0(formula_true))
 val () = insert("false_bool", S2CINTbuiltin_0(formula_false))
+val () = insert("unit_p", S2CINTbuiltin_0(formula_unit_p))
 //
 val () = insert("neg_int", S2CINTbuiltin_1(formula_ineg))
 //
@@ -169,6 +170,8 @@ val () = insert("gt_addr_addr", S2CINTbuiltin_2(formula_igt))
 val () = insert("gte_addr_addr", S2CINTbuiltin_2(formula_igte))
 val () = insert("eq_addr_addr", S2CINTbuiltin_2(formula_ieq))
 val () = insert("neq_addr_addr", S2CINTbuiltin_2(formula_ineq))
+(** Not very precise, but makes sense in smt... *)
+val () = insert("==", S2CINTbuiltin_2(formula_eqeq))
 //
 (*
 val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))

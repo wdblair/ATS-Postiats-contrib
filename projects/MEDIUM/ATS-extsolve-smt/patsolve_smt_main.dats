@@ -53,7 +53,7 @@ main0 (argc, argv) =
 {
 //
 val () =
-println!
+prerrln!
   ("Hello from [patsolve_smt]!")
 //
 val () = the_s2cinterp_initize()
