@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+  
+cvc4 --quant-ind --quant-cf --conjecture-gen \
+     --conjecture-gen-per-round=3 --full-saturate-quant --incremental $@
