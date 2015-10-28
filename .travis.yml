@@ -25,6 +25,7 @@ script:
   - export PATSHOME=${HOME}/ATS2-srcfrg
   - export PATH=${PATH}:${PATSHOME}/bin
   - (cd ${PATSHOME} && ./configure && make all)
+  - export PATH=${HOME}/bin
   # Testing extensively
   - cd ${TRAVIS_BUILD_DIR}
   - make -f Makefile_test testall

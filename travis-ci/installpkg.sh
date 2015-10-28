@@ -58,6 +58,12 @@ then
 # sudo apt-get -qq -y install libjson0-dev
 # For contrib/jansson/
 # sudo apt-get -qq -y install libjansson-dev
+  mkdir bin
+  cd bin
+  curl http://lara.epfl.ch/~reynolds/VMCAI2015-ind/cvc4-smt-ind.tgz |
+      tar -xz 
+  chmod +x cvc4
+  cd ${HOME}
 #
 fi
 
