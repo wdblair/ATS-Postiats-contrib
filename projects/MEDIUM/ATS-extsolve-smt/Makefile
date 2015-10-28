@@ -157,8 +157,14 @@ build:: patsolve_smt
 
 ######
 
-testall:: all
+testall:: build all
+testall:: test
 testall:: cleanall
+
+######
+
+test:
+	make -C TEST
 
 ######
 
