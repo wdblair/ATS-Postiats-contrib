@@ -16,6 +16,8 @@ staload
 "{$PATSOLVE}/patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
+staload
+"{$PATSOLVE}/patsolve_parsing.sats"
 //
 staload "./../patsolve_smt_solving.sats"
 //

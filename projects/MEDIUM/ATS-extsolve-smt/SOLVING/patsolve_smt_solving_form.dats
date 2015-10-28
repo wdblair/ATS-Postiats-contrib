@@ -38,7 +38,7 @@ assume func_decl_vtype = ref(func_decl_record)
 implement
 formula_to_smtlib 
   (f) = f
-  
+
 (* ****** ****** *)
 
 fun formlst_to_smtlib
@@ -104,6 +104,13 @@ implement
 formula_false() = tt where
 {
   val f = string0_copy("false")
+  val tt = Atom(f)
+}
+
+implement
+formula_unit_p() = tt where
+{
+  val f = string0_copy("unit_p")
   val tt = Atom(f)
 }
 
@@ -467,12 +474,12 @@ func_decl_list
   in
     ref_make_elt<func_decl_record>(decl)
   end // end of [func_decl_list]
-  
+
 implement
 func_decl_to_smtlib
   (fd) = let
   val (pf, fpf | fp) = ref_vtakeout{func_decl_record}(fd)
-  val opr = copy("define-fun")
+  val opr = copy("declare-fun")
   val name = copy(fp->symbol)
   val sorts =
     list_vt_map_fun<sort><form>(fp->args,
@@ -616,6 +623,14 @@ val id = strptrlst_concat(name :: copy("!") :: g0int2string(stamp) :: nil)
 //
 val () = assertloc(isneqz id)
 val ast = Atom(id)
+val ast2 = ast.incref()
+//
+val srt = sort_make_s2rt(s2v0.srt())
+val srtast = sort_to_smtlib(srt)
+val decl = Apply(copy("declare-const"), formula_to_smtlib(ast2) :: srtast :: nil)
+val cmd = decl.to_string()
+val () = println!(cmd)
+val () = free(cmd)
 //
 } (* end of [formula_make_s2var_fresh] *)
 
@@ -646,6 +661,7 @@ implement
 s2cfun_initize_s2cinterp
   (s2c0) = let
 //
+val stamp = s2c0.stamp()
 val name = s2c0.name()
 val name = symbol_get_name(name)
 //
@@ -654,13 +670,6 @@ val-S2RTfun(s2ts_arg, s2t_res) = s2t0
 (*
 val arity = list_length(s2ts_arg)
 *)
-//
-val
-fopr = lam
-(
-  xs: formlst
-) : form =<cloref1> let
-//
 val range = sort_make_s2rt(s2t_res)
 //
 val domain =
@@ -669,8 +678,58 @@ val domain =
 //
 val fd0 = func_decl_list(name, domain, range)
 //
+(** Ensure this function is not a datasort constructor.
+    All datasort constructors are already defined *)
+val s2rtdatmap = the_s2rtdatmap_get()
+//
+fun find(rs: s2rtdatlst, stamp: stamp): bool =
+    (** datasort constructors are already declared*)
+    case+ rs of
+      | list_nil () => false
+      | list_cons (dat, rss) => let
+        val conss = s2rtdat_get_sconlst (dat)
+        fun loop (cs: s2cstlst): bool =
+          case+ cs of 
+            | list_nil () => false
+            | list_cons (s2cst, css) => let
+              val stamp' = s2cst.stamp()
+            in
+              if stamp = stamp' then
+                true
+              else
+                loop(css)
+            end
+       in
+        loop(conss) orelse find (rss, stamp)
+       end
+//
+val iscons = find(s2rtdatmap, stamp)
+val () =
+  (** Declare the function to the smt solver *)
+  if ~iscons then {
+    val decl = func_decl_to_smtlib(fd0)
+    val cmd = decl.to_string()
+    val () = println!(cmd)
+    val () = free(cmd)
+  }
+//
+val
+fopr = lam
+(
+  xs: formlst
+) : form =<cloref1> let
 in
-  formula_fdapp_list(fd0, xs)
+  (** Nullary constructors are not functions in smt-lib,
+     they are constants in smt-which really screws things up. *)
+  if iscons andalso length(xs) = 0 then let
+    (** Typechecking won't pass without this check... *)
+    val () = assertloc(length(xs) = 0)
+    val ~list_vt_nil() = xs
+  in
+    Atom(copy(name))
+  end
+  else
+    formula_fdapp_list(fd0, xs)
 end // end of [fopr]
 //
 in

@@ -189,4 +189,58 @@ end (* end of [sort_make_s2rt] *)
 
 (* ****** ****** *)
 
+#define :: list_vt_cons
+#define nil list_vt_nil
+
+local
+  val i = ref_make_elt<int>(0)
+in
+
+implement
+sort_declare_s2rtdat (s2rtdat) = {
+  val name = s2rtdat_get_name (s2rtdat)
+  val conlst = s2rtdat_get_sconlst (s2rtdat)
+  val constructors =
+    list_map_fun<s2cst><SMTAst>(conlst,
+      lam s2cst => let
+        val sym = s2cst.name()
+        val name = sym.name()
+        val- S2RTfun(args, res) = s2cst.srt()
+        val n = length(args)
+        fun range (n:int, res:List0(int)): List0(int) =
+          if n = 0 then
+            res
+          else let
+            val nexti = !i
+            val () = !i := succ(nexti)
+          in
+           range(pred(n), list_cons(nexti, res))
+          end
+          val iargs = list_zip(range(n, list_nil()), args)
+          val declargs = list_vt_map_fun<@(int, s2rt)><SMTAst>(iargs,
+            lam pair => let
+              val i = pair.0
+              val srt = pair.1
+              val ast = sort_make_s2rt(srt)
+              val id = g0int2string(i)
+              val name = strptrlst_concat (copy("x") :: id :: nil)
+              val () = assertloc(isneqz(name))
+            in
+              Apply(name, ast :: nil)
+            end 
+          )
+          val () = list_vt_free(iargs)
+      in        
+        Apply(copy(name), declargs)
+      end
+    ) // end of [constructors]
+  val cs = list_vt_mapfree_fun<SMTAst><Strptr1>(constructors, lam c => c.to_string())
+  val consdecl = strptrlst_concat(cs)
+  val () = println! ("(declare-datatypes () ((", name, " ", consdecl, ")))")
+  val () = free(consdecl)
+}
+end
+
+(* ****** ****** *)
+
 (* end of [patsolve_z3_solving_sort.dats] *)

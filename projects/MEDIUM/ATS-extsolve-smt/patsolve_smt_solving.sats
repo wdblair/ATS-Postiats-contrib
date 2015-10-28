@@ -115,6 +115,8 @@ fun sort_error (s2rt): sort
 //
 fun sort_make_s2rt (s2rt): sort
 //
+fun sort_declare_s2rtdat (s2rtdat): void
+//
 (* ****** ****** *)
 //
 fun sort_to_smtlib (sort): SMTAst
@@ -123,6 +125,8 @@ fun formula_null (): form
 
 fun formula_true (): form
 fun formula_false (): form
+
+fun formula_unit_p (): form
 
 (* ****** ****** *)
 

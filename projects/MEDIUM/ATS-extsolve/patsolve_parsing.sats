@@ -95,9 +95,11 @@ fun parse_s2rtdatlst(jsnv: jsonval): s2rtdatlst
 (* ****** ****** *)
 //
 fun
-the_s2cstmap_search(stamp): s2cstopt_vt
+the_s2cstmap_search (stamp): s2cstopt_vt
 //
 fun the_s2cstmap_insert (s2c: s2cst): void
+//
+fun the_s2cstmap_listize (): s2cstlst
 //
 (* ****** ****** *)
 //

@@ -133,16 +133,9 @@ smtenv_add_s2var
   (env, s2v0) = let
 val ast =
   formula_make_s2var_fresh(env, s2v0)
-val ast2 = ast.incref()
-val () = s2var_push_payload(s2v0, ast)
-val srt = sort_make_s2rt(s2v0.srt())
-val srtast = sort_to_smtlib(srt)
-val decl = Apply(copy("declare-const"), formula_to_smtlib(ast2) :: srtast :: nil)
-val cmd = decl.to_string()
-val () = println!(cmd)
-val () = free(cmd)
 //
 in
+  s2var_push_payload(s2v0, ast)
 end // end of [smtenv_add_s2var]
 
 (* ****** ****** *)

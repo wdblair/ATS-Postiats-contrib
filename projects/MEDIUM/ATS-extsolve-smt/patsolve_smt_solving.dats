@@ -347,6 +347,49 @@ implement
 c3nstr_smt_solve
   (c3t0) = let
 //
+(** Set default logic *)
+val () = println! "(set-logic ALL_SUPPORTED)"
+(** For asserting lemmas *)
+val () = println! "(declare-const unit_p Bool)"
+(** Declare all datasorts *)
+val s2rtmap = the_s2rtdatmap_get()
+
+implement
+list_foreach$fwork<s2rtdat><void>(s2rt, v) = sort_declare_s2rtdat(s2rt)
+val () = list_foreach<s2rtdat> (s2rtmap)
+
+(** Declare all uninterpreted functions *)
+
+(**
+val s2cstmap = the_s2cstmap_listize()
+implement
+list_filter$pred<s2cst>(s2cst) = let
+  val stamp = s2cst.stamp()
+  fun loop(rs: s2rtdatlst): bool =
+    (** datasort constructors are already declared, remove them.*)
+    case+ rs of
+      | list_nil () => false
+      | list_cons (dat, rss) => let
+        val conss = s2rtdat_get_sconlst (dat)
+        fun innerloop (cs: s2cstlst): bool =
+          case+ cs of 
+            | list_nil () => false
+            | list_cons (s2cst, css) => let
+              val stamp' = s2cst.stamp()
+            in
+              if stamp = stamp' then
+                true
+              else
+                innerloop(css)
+            end
+       in
+        innerloop(conss) orelse loop(rss)
+       end
+in
+  loop (s2rtmap)
+end
+*)
+//
 val env = smtenv_create()
 //
 var unsolved: uint = 0u and err: int = 0

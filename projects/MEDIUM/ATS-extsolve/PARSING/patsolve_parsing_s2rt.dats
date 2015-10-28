@@ -136,7 +136,7 @@ val stamp = parse_stamp (x2)
 val s2cs0 = parse_s2cstlst (x3)
 //
 in
-  s2rtdat_make(name, stamp, s2cs0)
+  s2rtdat_make (name, stamp, s2cs0)
 end // end of [parse_s2rtdat]
 
 (* ****** ****** *)
