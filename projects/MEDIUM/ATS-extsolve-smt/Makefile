@@ -56,7 +56,7 @@ CFLAGS2 :=
 CFLAGS2 +=-DATS_MEMALLOC_LIBC
 CFLAGS2 +=-I${PATSHOMERELOC}/contrib
 CFLAGS2 +=-I${PATSHOMERELOC}/contrib/SMT
-CFLAGS2 += $(shell pkg-config --cflags json-c)
+CFLAGS2 += $(shell pkg-config --cflags json)
 #
 ######
 
@@ -65,7 +65,7 @@ PATSCC2=$(PATSCC) $(CFLAGS2)
 ######
 
 LDFLAGS :=
-LDFLAGS += $(shell pkg-config --libs json-c)
+LDFLAGS += $(shell pkg-config --libs json)
 LDFLAGS +=-lgc
 
 ######

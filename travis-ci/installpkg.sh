@@ -49,11 +49,6 @@ then
   curl http://lara.epfl.ch/~reynolds/VMCAI2015-ind/cvc4-smt-ind.tgz |
       tar -xz
   chmod +x cvc4
-  cd ${HOME}
-  
-  curl \
-      https://s3.amazonaws.com/json-c_releases/releases/json-c-0.10.tar.gz \
-      | tar -xz
 #
 fi
 

@@ -33,14 +33,7 @@
 
 /* ****** ****** */
 
-#include <json-c/json.h>
-
-/* ****** ****** */
-
-#define \
-atscntrb_jsonc_json_c_version() ((char*)(json_c_version()))
-#define \
-atscntrb_jsonc_json_c_version_num() ((int)(json_c_version_num()))
+#include <json/json.h>
 
 /* ****** ****** */
 
@@ -48,7 +41,7 @@ typedef
 struct
 json_object_iterator
 json_object_iterator_struct ;
-
+  
 /* ****** ****** */
 
 #define atscntrb_jsonc_array_list_new array_list_new
