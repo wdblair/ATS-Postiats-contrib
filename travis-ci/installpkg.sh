@@ -51,7 +51,9 @@ then
   chmod +x cvc4
   cd ${HOME}
   
-  git clone https://github.com/json-c/json-c.git
+  curl \
+      https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz \
+      | tar -xz
 #
 fi
 
