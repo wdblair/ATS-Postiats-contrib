@@ -51,7 +51,7 @@ then
   chmod +x cvc4
   cd ${HOME}
   
-  git clone git@github.com:json-c/json-c.git
+  git clone https://github.com/json-c/json-c.git
 #
 fi
 
