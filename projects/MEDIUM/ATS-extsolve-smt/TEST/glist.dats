@@ -83,7 +83,7 @@ extern
 praxi
 drop_nil_lemma {xs:slist}
   (): [drop(snil(), zero()) == xs] unit_p
-  
+
 extern
 praxi
 drop_ind_lemma {x,n:Nat} {xs:slist}
