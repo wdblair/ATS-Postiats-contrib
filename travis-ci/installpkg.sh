@@ -44,20 +44,6 @@ is_linux=`expr "${TRAVIS_OS_NAME}" : "linux"`;
 if
   expr ${is_linux} > 0
 then
-#
-  echo "is_linux = ${is_linux}"
-#
-# sudo apt-get -qq -y update
-# sudo apt-get -qq -y install libgc-dev
-# sudo apt-get -qq -y install libgmp-dev
-# For contrib/GTK/
-# sudo apt-get -qq -y install libgtk-3-dev
-# For contrib/libev/
-# sudo apt-get -qq -y install libev-dev
-# For contrib/json-c/
-# sudo apt-get -qq -y install libjson0-dev
-# For contrib/jansson/
-# sudo apt-get -qq -y install libjansson-dev
   mkdir bin
   cd bin
   curl http://lara.epfl.ch/~reynolds/VMCAI2015-ind/cvc4-smt-ind.tgz |
