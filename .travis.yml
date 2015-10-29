@@ -25,6 +25,7 @@ before_install:
   # Seting-up ATS2-contrib
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
   - export PKG_CONFIG_PATH=${HOME}/pkg/lib/pkgconfig/
+  - export LD_LIBRARY_PATH=${HOME}/pkg/lib/
 script:
   # Building ATS2
   - export PATSHOME=${HOME}/ATS2-srcfrg
