@@ -79,16 +79,92 @@ end (* end of [s2var_push_payload] *)
 
 (* ****** ****** *)
 
-assume smtenv_vtype = ptr
+datavtype
+smtenv =
+SMTENV of (smtenv_struct)
+
+where
+smtenv_struct = @{
+
+smtenv_s2varlst = s2varlst_vt
+,
+smtenv_s2varlstlst = List0_vt(s2varlst_vt)
+//
+} (* end of [smtenv_struct] *)
+
+(* ****** ****** *)
+//
+extern
+fun
+smtenv_s2varlst_vt_free(s2varlst_vt): void
+extern
+fun
+smtenv_s2varlstlst_vt_free(List0_vt(s2varlst_vt)): void
+//
+(* ****** ****** *)
+
+implement
+smtenv_s2varlst_vt_free
+  (s2vs) = loop(s2vs) where
+{
+//
+fun
+loop
+(
+  s2vs: s2varlst_vt
+) : void = (
+//
+case+ s2vs of
+| ~list_vt_nil
+    ((*void*)) => ()
+| ~list_vt_cons
+    (s2v, s2vs) => let
+//
+    val ast = s2var_pop_payload(s2v)
+    val () = ast.decref()
+  in
+    loop(s2vs)
+  end // end of [list_vt_cons]
+//
+) (* end of [loop] *)
+//
+} (* end of [smtenv_s2varlst_vt_free] *)
+
+(* ****** ****** *)
+
+implement
+smtenv_s2varlstlst_vt_free
+  (xss) =
+(
+case+ xss of
+| ~list_vt_nil() => ()
+| ~list_vt_cons(xs, xss) =>
+  (
+    smtenv_s2varlst_vt_free(xs);
+    smtenv_s2varlstlst_vt_free(xss)
+  )
+) (* smtenv_s2varlstlst_vt_free *)
+
+(* ****** ****** *)
+
+assume smtenv_vtype = smtenv
 assume smtenv_push_v = unit_v
 
 (* ****** ****** *)
 
 implement
 smtenv_create
-  () = the_null_ptr where
+  () = env where
 {
-(** Nothing to do for now *)
+//
+val env = SMTENV(_)
+val+SMTENV(env_s) = env
+//
+val () = env_s.smtenv_s2varlst := nil_vt()
+val () = env_s.smtenv_s2varlstlst := nil_vt()
+//
+prval () = fold@(env)
+//
 } (* end of [smtenv_create] *)
 
 (* ****** ****** *)
@@ -96,6 +172,11 @@ smtenv_create
 implement
 smtenv_destroy
   (env) = let
+//
+val+~SMTENV(env_s) = env
+//
+val () = smtenv_s2varlst_vt_free(env_s.smtenv_s2varlst)
+val () = smtenv_s2varlstlst_vt_free(env_s.smtenv_s2varlstlst)
 //
 in
   // nothing
@@ -108,6 +189,17 @@ smtenv_pop
   (pf | env) = let
 //
 prval unit_v() = pf
+//
+val+@SMTENV(env_s) = env
+//
+val s2vs = env_s.smtenv_s2varlst
+val ((*void*)) = smtenv_s2varlst_vt_free(s2vs)
+val-~list_vt_cons(s2vs, s2vss) = env_s.smtenv_s2varlstlst
+//
+val ((*void*)) = env_s.smtenv_s2varlst := s2vs
+val ((*void*)) = env_s.smtenv_s2varlstlst := s2vss
+//
+prval ((*folded*)) = fold@(env)
 val () = println!("(pop)")
 //
 in
@@ -120,6 +212,16 @@ implement
 smtenv_push
   (env) = let
 //
+val+@SMTENV(env_s) = env
+//
+val s2vs = env_s.smtenv_s2varlst
+val s2vss = env_s.smtenv_s2varlstlst
+//
+val ((*void*)) = env_s.smtenv_s2varlst := nil_vt()
+val ((*void*)) = env_s.smtenv_s2varlstlst := cons_vt(s2vs, s2vss)
+//
+prval ((*folded*)) = fold@(env)
+//
 val () = println!("(push)")
 //
 in
@@ -131,6 +233,13 @@ end // end of [smtenv_push]
 implement
 smtenv_add_s2var
   (env, s2v0) = let
+//
+val+@SMTENV(env_s) = env
+val s2vs = env_s.smtenv_s2varlst
+val ((*void*)) =
+  env_s.smtenv_s2varlst := list_vt_cons(s2v0, s2vs)
+prval ((*void*)) = fold@(env)
+//
 val ast =
   formula_make_s2var_fresh(env, s2v0)
 //

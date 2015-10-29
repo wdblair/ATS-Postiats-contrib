@@ -3,10 +3,8 @@
   If you use CVC4 as your back end, then it can solve
   some constraints that require inductive reasoning.
 *)
-datasort Nat =
-  | zero of ()
-  | succ of (Nat)
-  
+staload "./nat.sats"
+
 datasort slist =
  | snil of ()
  | scons of (Nat, slist)
@@ -25,7 +23,7 @@ datatype list(a:t@ype, xs:slist) =
   | nil (a, snil()) of ()
   | {x:Nat} {xss:slist}
     cons (a, scons(x, xss)) of (T(a,x), list(a, xss))
-    
+
 extern
 fun {a:t@ype} wrap_val (a): [x:Nat] T(a, x)
 
@@ -62,13 +60,13 @@ append_ind_lemma {x:Nat} {xs,ys:slist}
 extern
 praxi
 take_base_lemma {xs:slist}
-  (): [take(xs, zero()) == snil()] unit_p
-  
+  (): [take(xs, zero) == snil] unit_p
+
 extern
 praxi
 take_nil_lemma {n:Nat} {xs:slist}
-  (): [take(snil(), n) == snil()] unit_p  
-  
+  (): [take(snil, n) == snil] unit_p
+
 extern
 praxi
 take_ind_lemma {x,n:Nat} {xs:slist}
@@ -89,10 +87,47 @@ praxi
 drop_ind_lemma {x,n:Nat} {xs:slist}
   (): [drop(scons(x, xs), succ(n)) == drop(xs, n)] unit_p
 
-(** CVC4 can prove this automatically *)
+stacst length_slist: (slist) -> Nat
+stadef length = length_slist
+
+extern
+praxi
+length_base_lemma (): [length(snil) == zero] unit_p
+
+extern
+praxi
+length_ind_lemma {x:Nat} {xs:slist}
+  (): [length(scons(x, xs)) == succ(length(xs))] unit_p
+
+datasort set = (** abstract *)
+
+stacst empty_set: set
+stadef empty = empty_set
+
+stacst set_sing: (Nat) -> set
+stadef set = set_sing
+
+stacst set_union: (set, set) -> set
+stadef union = set_union
+
+stacst contents_list_set: (slist) -> set
+stadef contents = contents_list_set
+
+extern
+praxi
+list_contents_base
+  (): [contents(snil) == empty] unit_p
+
+extern
+praxi
+list_contents_lemma {x:Nat} {xs:slist} 
+  (): [contents(scons(x, xs)) == union(set(x), contents(xs))] unit_p
+
+(** CVC4 and Z3 can prove this automatically *)
 prfun
-append_lemma {n:Nat} {xs:slist} .<>.
+append_lemma {n:Nat} {xs:slist}  .<>.
   (): [append(take(xs,n), drop(xs,n)) == xs] unit_p = let
+//  
   prval () = $solver_assert(take_base_lemma)
   prval () = $solver_assert(take_nil_lemma)
   prval () = $solver_assert(take_ind_lemma)
@@ -105,6 +140,17 @@ append_lemma {n:Nat} {xs:slist} .<>.
   prval () = $solver_assert(append_ind_lemma)
 in
   unit_p ()
+end
+
+fun
+contents_lemma {a:t@ype} {xs:slist}
+  (xs: list(a, xs)): [ys:slist | contents(xs) == contents(ys)] list(a, ys) = let
+  prval () = $solver_assert(list_contents_base)
+  prval () = $solver_assert(list_contents_lemma)
+in
+  case+ xs of 
+    | nil () => xs
+    | cons (x, xss) => xs
 end
 
 implement main0 () = {

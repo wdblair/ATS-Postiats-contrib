@@ -349,8 +349,6 @@ c3nstr_smt_solve
 //
 (** Set default logic *)
 val () = println! "(set-logic ALL_SUPPORTED)"
-(** For asserting lemmas *)
-val () = println! "(declare-const unit_p Bool)"
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()
 

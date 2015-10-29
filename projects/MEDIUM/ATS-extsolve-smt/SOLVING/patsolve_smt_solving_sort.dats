@@ -113,7 +113,7 @@ sort_mk_tkind () = sort_mk_abstract ("tkind")
 
 implement
 sort_declare_abstract
-  (name) = println! ("(declare-sort ", name, " 1)")
+  (name) = println! ("(declare-sort ", name, " 0)")
 
 (*
 implement
@@ -197,7 +197,7 @@ local
 in
 
 implement
-sort_declare_s2rtdat (s2rtdat) = {
+sort_declare_s2rtdat (s2rtdat) = let
   val name = s2rtdat_get_name (s2rtdat)
   val conlst = s2rtdat_get_sconlst (s2rtdat)
   val constructors =
@@ -234,12 +234,21 @@ sort_declare_s2rtdat (s2rtdat) = {
         Apply(copy(name), declargs)
       end
     ) // end of [constructors]
-  val cs = list_vt_mapfree_fun<SMTAst><Strptr1>(constructors, lam c => c.to_string())
-  val consdecl = strptrlst_concat(cs)
-  val () = println! ("(declare-datatypes () ((", name, " ", consdecl, ")))")
-  val () = free(consdecl)
-}
-end
+in
+  case+ constructors of
+    | ~list_vt_nil () => 
+      sort_declare_abstract (name.name())
+    | _ =>> let 
+      val cs = 
+        list_vt_mapfree_fun<SMTAst><Strptr1>(constructors, lam c => c.to_string())
+      val consdecl = strptrlst_concat(cs)
+    in
+      println!("(declare-datatypes () ((", name, " ", consdecl, ")))");
+      free(consdecl)
+    end
+end // end of [sort_declare_s2rtdat]
+
+end // end of [local]
 
 (* ****** ****** *)
 

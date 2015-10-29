@@ -107,13 +107,6 @@ formula_false() = tt where
   val tt = Atom(f)
 }
 
-implement
-formula_unit_p() = tt where
-{
-  val f = string0_copy("unit_p")
-  val tt = Atom(f)
-}
-
 (* ****** ****** *)
 
 implement
@@ -474,7 +467,7 @@ func_decl_list
   in
     ref_make_elt<func_decl_record>(decl)
   end // end of [func_decl_list]
-
+  
 implement
 func_decl_to_smtlib
   (fd) = let
@@ -574,6 +567,13 @@ val stamp = stamp_get_int(s2c0.stamp())
 val id = strptrlst_concat(name :: copy("!") :: g0int2string(stamp) :: nil)
 val () = assertloc(isneqz(id))
 val ast = Atom(id)
+//
+val srt = sort_make_s2rt(s2c0.srt())
+val smtsrt = sort_to_smtlib(srt)
+val decl = Apply(copy("declare-const"), ast.incref() :: smtsrt :: nil)
+val cmd = decl.to_string()
+val () = println!(cmd)
+val () = free(cmd)
 //
 } (* end of [formula_make_s2cst_fresh] *)
 
