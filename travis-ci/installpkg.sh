@@ -52,7 +52,7 @@ then
   cd ${HOME}
   
   curl \
-      https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz \
+      https://s3.amazonaws.com/json-c_releases/releases/json-c-0.10.tar.gz \
       | tar -xz
 #
 fi

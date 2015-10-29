@@ -18,7 +18,7 @@ before_install:
   - ${TRAVIS_BUILD_DIR}/travis-ci/installpkg.sh
   - cd ${HOME}
   - mkdir lib  
-  - (cd json-c-0.12 && ./configure --prefix ${HOME}/lib && make all && make install)
+  - (cd json-c-0.10 && ./configure --prefix ${HOME}/lib && make all && make install)
   - export C_INCLUDE_PATH=${HOME}/lib/include
   - cd ${HOME}
   # Download ATS2
