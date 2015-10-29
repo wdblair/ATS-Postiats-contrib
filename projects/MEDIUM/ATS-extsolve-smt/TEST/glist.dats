@@ -6,7 +6,7 @@
 datasort Nat =
   | zero of ()
   | succ of (Nat)
-
+  
 datasort slist =
  | snil of ()
  | scons of (Nat, slist)
