@@ -17,8 +17,7 @@ before_install:
   - ${TRAVIS_BUILD_DIR}/travis-ci/installpkg.sh
   - cd ${HOME}
   - git clone https://github.com/json-c/json-c.git
-  - automake --version
-  - (cd json-c && aclocal && autoconf && ./configure --prefix=${HOME}/pkg && make all && make install)
+  - (cd json-c && aclocal && autoconf && ln -s /usr/share/automake-1.11.3/install-sh install-sh && ./configure --prefix=${HOME}/pkg && make all && make install)
   - cd ${HOME}
   # Download ATS2
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-srcfrg
