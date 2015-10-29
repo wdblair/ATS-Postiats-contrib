@@ -103,7 +103,10 @@ val itm =
 (
   case+ opt of
   | ~Some_vt(itm) => itm
-  | ~None_vt((*void*)) => S2CINTnone()
+  | ~None_vt((*void*)) => let
+  in
+    S2CINTnone()
+  end
 ) : s2cinterp // end of [val]
 val () = s2cst_set_payload(s2c, $UN.cast{ptr}(itm))
 //
@@ -123,7 +126,6 @@ val () = insert("null_addr", S2CINTbuiltin_0(formula_null))
 //
 val () = insert("true_bool", S2CINTbuiltin_0(formula_true))
 val () = insert("false_bool", S2CINTbuiltin_0(formula_false))
-val () = insert("unit_p", S2CINTbuiltin_0(formula_unit_p))
 //
 val () = insert("neg_int", S2CINTbuiltin_1(formula_ineg))
 //

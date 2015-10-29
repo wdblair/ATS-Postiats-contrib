@@ -242,6 +242,9 @@ formula_fdapp_list(fd: func_decl, args: formlst): form
 fun
 formula_to_smtlib(f: form): SMTAst
 //
+fun
+declare_s2cst(s2cst): void
+//
 (* ****** ****** *)
 
 absvtype smtenv_vtype = ptr
