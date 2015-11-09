@@ -358,8 +358,8 @@ val () = list_foreach<s2rtdat> (s2rtmap)
 
 (** Declare all uninterpreted functions *)
 
-(**
-val s2cstmap = the_s2cstmap_listize()
+val s2cs = the_s2cstmap_listize ()
+
 implement
 list_filter$pred<s2cst>(s2cst) = let
   val stamp = s2cst.stamp()
@@ -386,6 +386,18 @@ list_filter$pred<s2cst>(s2cst) = let
 in
   loop (s2rtmap)
 end
+
+val s2cs = list_of_list_vt (
+  list_filter<s2cst>(s2cs)
+)
+
+implement
+list_foreach$fwork<s2cst><void>(s2rt, v) = declare_s2cst(s2rt)
+val () = list_foreach<s2cst> (s2cs)
+
+(**
+val s2cstmap = the_s2cstmap_listize()
+
 *)
 //
 val env = smtenv_create()

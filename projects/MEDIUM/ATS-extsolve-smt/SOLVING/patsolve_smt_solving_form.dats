@@ -484,6 +484,14 @@ in
   Apply(opr, Atom(name) :: formlst_to_smtlib(sorts) :: resast :: nil)
 end
 
+implement
+declare_s2cst
+  (s2cst) = let
+  
+in
+  
+end
+
 (* ****** ****** *)
 
 implement
