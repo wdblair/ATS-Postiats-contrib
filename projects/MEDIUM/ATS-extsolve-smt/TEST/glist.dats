@@ -8,7 +8,7 @@ staload "./nat.sats"
 datasort slist =
  | snil of ()
  | scons of (Nat, slist)
- 
+
 stacst empty : (slist) -> bool
 stacst head : (slist) -> Nat
 stacst tail : (slist) -> Nat
@@ -142,6 +142,8 @@ in
   unit_p ()
 end
 
+////
+(**
 fun
 contents_lemma {a:t@ype} {xs:slist}
   (xs: list(a, xs)): [ys:slist | contents(xs) == contents(ys)] list(a, ys) = let
@@ -152,6 +154,7 @@ in
     | nil () => xs
     | cons (x, xss) => xs
 end
+*)
 
 implement main0 () = {
   prval () = $solver_assert(empty_base_lemma)
