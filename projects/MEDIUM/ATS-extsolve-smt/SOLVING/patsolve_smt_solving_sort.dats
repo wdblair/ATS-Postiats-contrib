@@ -203,8 +203,10 @@ sort_declare_s2rtdat (s2rtdat) = let
   val constructors =
     list_map_fun<s2cst><SMTAst>(conlst,
       lam s2cst => let
+        val stamp = s2cst.stamp()
         val sym = s2cst.name()
         val name = sym.name()
+        val id = stringlst_concat(list_cons(name, list_cons("!", list_cons(strptr2string(g0int2string(stamp_get_int(stamp))), list_nil()))))
         val- S2RTfun(args, res) = s2cst.srt()
         val n = length(args)
         fun range (n:int, res:List0(int)): List0(int) =
@@ -231,7 +233,7 @@ sort_declare_s2rtdat (s2rtdat) = let
           )
           val () = list_vt_free(iargs)
       in        
-        Apply(copy(name), declargs)
+        Apply(id, declargs)
       end
     ) // end of [constructors]
 in

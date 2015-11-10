@@ -349,6 +349,13 @@ c3nstr_smt_solve
 //
 (** Set default logic *)
 val () = println! "(set-logic ALL_SUPPORTED)"
+val () = begin
+  sort_declare_abstract("cls");
+  sort_declare_abstract("eff");
+  sort_declare_abstract("type");  
+  sort_declare_abstract("t0ype");
+  sort_declare_abstract("tkind");
+end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()
 
@@ -357,9 +364,7 @@ list_foreach$fwork<s2rtdat><void>(s2rt, v) = sort_declare_s2rtdat(s2rt)
 val () = list_foreach<s2rtdat> (s2rtmap)
 
 (** Declare all uninterpreted functions *)
-
 val s2cs = the_s2cstmap_listize ()
-
 implement
 list_filter$pred<s2cst>(s2cst) = let
   val stamp = s2cst.stamp()
@@ -384,7 +389,7 @@ list_filter$pred<s2cst>(s2cst) = let
         innerloop(conss) orelse loop(rss)
        end
 in
-  loop (s2rtmap)
+  ~loop(s2rtmap)
 end
 
 val s2cs = list_of_list_vt (
@@ -395,21 +400,11 @@ implement
 list_foreach$fwork<s2cst><void>(s2rt, v) = declare_s2cst(s2rt)
 val () = list_foreach<s2cst> (s2cs)
 
-(**
-val s2cstmap = the_s2cstmap_listize()
-
-*)
 //
 val env = smtenv_create()
 //
 var unsolved: uint = 0u and err: int = 0
-val () = begin
-  sort_declare_abstract("cls");
-  sort_declare_abstract("eff");
-  sort_declare_abstract("type");  
-  sort_declare_abstract("t0ype");
-  sort_declare_abstract("tkind");
-end
+//
 val _(*ans*) = c3nstr_solve_main (env, c3t0, unsolved, err)
 //
 val ((*void*)) = smtenv_destroy (env)
