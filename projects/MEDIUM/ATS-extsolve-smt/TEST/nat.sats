@@ -27,7 +27,7 @@ stacst plus_nat_nat: (Nat, Nat) -> Nat
 stadef + = plus_nat_nat
 
 praxi
-plus_base_lemma {x:Nat} (): [(x + zero) == x] unit_p
+plus_base_lemma {x:Nat} (): [(zero + x) == x] unit_p
 
 praxi
 plus_ind_lemma {n,m:Nat} (): [succ(n) + m == succ (n + m)] unit_p

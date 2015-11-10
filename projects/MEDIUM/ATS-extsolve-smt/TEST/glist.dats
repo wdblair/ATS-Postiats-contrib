@@ -36,7 +36,7 @@ extern
 fun {a:t@ype} tail {sxs:slist} (
   xs: list(a, sxs)
 ): T(a, tail(sxs))
-
+  
 extern
 praxi
 empty_base_lemma
@@ -51,12 +51,12 @@ extern
 praxi
 append_base_lemma {xs:slist}
   (): [append(snil(), xs) == xs] unit_p
-  
+
 extern
 praxi
 append_ind_lemma {x:Nat} {xs,ys:slist}
   (): [append(scons(x, xs), ys) == scons(x, append(xs,ys))] unit_p
-
+  
 extern
 praxi
 take_base_lemma {xs:slist}
@@ -81,12 +81,12 @@ extern
 praxi
 drop_nil_lemma {xs:slist}
   (): [drop(snil(), zero()) == xs] unit_p
-
+  
 extern
 praxi
 drop_ind_lemma {x,n:Nat} {xs:slist}
   (): [drop(scons(x, xs), succ(n)) == drop(xs, n)] unit_p
-
+  
 stacst length_slist: (slist) -> Nat
 stadef length = length_slist
 
@@ -98,7 +98,7 @@ extern
 praxi
 length_ind_lemma {x:Nat} {xs:slist}
   (): [length(scons(x, xs)) == succ(length(xs))] unit_p
-
+  
 datasort set = (** abstract *)
 
 stacst empty_set: set
@@ -142,8 +142,23 @@ in
   unit_p ()
 end
 
-////
 (**
+prfun
+append_length_lemma {xs,ys:slist} .<>.
+  (): [length(append(xs, ys)) == (length(xs) + length(ys))] unit_p = let
+  prval () = $solver_assert(plus_base_lemma)
+  prval () = $solver_assert(plus_ind_lemma)
+  //
+  prval () = $solver_assert(append_base_lemma)
+  prval () = $solver_assert(append_ind_lemma)
+  //
+  prval () = $solver_assert(length_base_lemma)
+  prval () = $solver_assert(length_ind_lemma)
+in
+  unit_p ()
+end
+*)
+
 fun
 contents_lemma {a:t@ype} {xs:slist}
   (xs: list(a, xs)): [ys:slist | contents(xs) == contents(ys)] list(a, ys) = let
@@ -154,7 +169,6 @@ in
     | nil () => xs
     | cons (x, xss) => xs
 end
-*)
 
 implement main0 () = {
   prval () = $solver_assert(empty_base_lemma)

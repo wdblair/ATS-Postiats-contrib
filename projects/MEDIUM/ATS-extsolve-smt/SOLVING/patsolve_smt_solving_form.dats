@@ -487,10 +487,37 @@ end
 implement
 declare_s2cst
   (s2cst) = let
-  
+  val stamp = stamp_get_int(s2cst.stamp())
+  val srt = s2cst.srt()
+  val sym = s2cst.name()
+  val name = sym.name()
+  val id = strptrlst_concat(copy(name) :: copy("!") :: g0int2string(stamp) :: nil)
+  val () = assertloc(isneqz(id))
 in
-  
-end
+  case+ srt of
+    | S2RTfun (args, res) => let
+      val domain = list_map_fun<s2rt><sort>(args, lam x => sort_make_s2rt(x))
+      val range = sort_make_s2rt(res)
+      val idcopy = strptr2string(copy(id))
+      val decl = func_decl_list(idcopy, domain, range)
+      val ast = func_decl_to_smtlib(decl)
+      val smtcmd = ast.to_string()
+    in
+      println! smtcmd;
+      free(smtcmd);
+      free(id)
+    end
+    | _ =>> let
+      val opr = copy("declare-const")
+      val sort = sort_to_smtlib(sort_make_s2rt(srt))
+      val decl = Apply(opr, Atom(copy(id)) :: sort :: nil)
+      val cmd = decl.to_string()
+    in
+      println! cmd;
+      free(cmd);
+      free(id)
+    end
+end // end of [delcare_s2cst]
 
 (* ****** ****** *)
 
@@ -575,13 +602,6 @@ val stamp = stamp_get_int(s2c0.stamp())
 val id = strptrlst_concat(name :: copy("!") :: g0int2string(stamp) :: nil)
 val () = assertloc(isneqz(id))
 val ast = Atom(id)
-//
-val srt = sort_make_s2rt(s2c0.srt())
-val smtsrt = sort_to_smtlib(srt)
-val decl = Apply(copy("declare-const"), ast.incref() :: smtsrt :: nil)
-val cmd = decl.to_string()
-val () = println!(cmd)
-val () = free(cmd)
 //
 } (* end of [formula_make_s2cst_fresh] *)
 
@@ -684,7 +704,8 @@ val domain =
   list_map_fun<s2rt><sort>(s2ts_arg, sort_make_s2rt)
 // end of [val]
 //
-val fd0 = func_decl_list(name, domain, range)
+val id = strptr2string(stringlst_concat(list_cons(name, list_cons("!", list_cons(strptr2string(g0int2string(stamp_get_int(stamp))), list_nil())))))
+val fd0 = func_decl_list(id, domain, range)
 //
 (** Ensure this function is not a datasort constructor.
     All datasort constructors are already defined *)
@@ -712,6 +733,7 @@ fun find(rs: s2rtdatlst, stamp: stamp): bool =
        end
 //
 val iscons = find(s2rtdatmap, stamp)
+(**
 val () =
   (** Declare the function to the smt solver *)
   if ~iscons then {
@@ -720,6 +742,7 @@ val () =
     val () = println!(cmd)
     val () = free(cmd)
   }
+*)
 //
 val
 fopr = lam
@@ -734,7 +757,7 @@ in
     val () = assertloc(length(xs) = 0)
     val ~list_vt_nil() = xs
   in
-    Atom(copy(name))
+    Atom(copy(id))
   end
   else
     formula_fdapp_list(fd0, xs)
