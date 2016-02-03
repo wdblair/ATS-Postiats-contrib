@@ -1,5 +1,5 @@
 %{#
-#include "contrib/libats-/wdblair/jsmn/CATS/jsmn.cats"
+#include "libats-/wdblair/jsmn/CATS/jsmn.cats"
 %}
 
 (**
