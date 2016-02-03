@@ -1,5 +1,5 @@
 %{#
-#include "contrib/libats-/wdblair/python/CATS/Python.cats"
+#include "libats-/wdblair/python/CATS/Python.cats"
 %}
 
 (**
