@@ -27,7 +27,7 @@ end
 
 local
 in
-#include "contrib/libats-/wdblair/jsmn/DATS/jsmn.dats"
+#include "libats-/wdblair/jsmn/DATS/jsmn.dats"
 end
 
 (* ****** ****** *)
