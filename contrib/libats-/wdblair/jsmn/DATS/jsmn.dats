@@ -1,7 +1,7 @@
 
 staload UN = "prelude/SATS/unsafe.sats"
 
-staload "contrib/libats-/wdblair/jsmn/SATS/jsmn.sats"
+staload "./../SATS/jsmn.sats"
 
 implement
 jsmntokptr_numtokens (jsv) = 
