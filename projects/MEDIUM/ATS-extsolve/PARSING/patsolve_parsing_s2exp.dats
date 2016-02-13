@@ -77,6 +77,19 @@ in
 end (* end of [aux_S2Eintinf] *)
 
 fun
+aux_S2Efloat
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S2Efloat(parse_string(x))
+end (* end of [aux_S2Efloat] *)
+
+fun
 aux_S2Ecst
 (
   x0: jsonval
@@ -300,6 +313,7 @@ case+ name of
 //
 | "S2Eint" => aux_S2Eint(jsnv2)
 | "S2Eintinf" => aux_S2Eintinf(jsnv2)
+| "S2Efloat" => aux_S2Efloat(jsnv2)
 //
 | "S2Ecst" => aux_S2Ecst(jsnv2)
 //

@@ -397,6 +397,7 @@ s2exp_node =
 //
 | S2Eint of (int)
 | S2Eintinf of (string)
+| S2Efloat of (string)
 //
 | S2Ecst of (s2cst)
 | S2Evar of (s2var)
