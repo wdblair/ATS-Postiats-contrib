@@ -69,6 +69,7 @@ of // case+
 //
 | S2Eint(i) => fprint! (out, "S2Eint(", i, ")")
 | S2Eintinf(i) => fprint! (out, "S2Eintinf(", i, ")")
+| S2Efloat(i) => fprint! (out, "S2Efloat(", i, ")")
 //
 | S2Ecst(s2c) => fprint! (out, "S2Ecst(", s2c, ")")
 | S2Evar(s2v) => fprint! (out, "S2Evar(", s2v, ")")
