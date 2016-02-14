@@ -348,13 +348,19 @@ c3nstr_smt_solve
   (c3t0) = let
 //
 (** Set default logic *)
-val () = println! "(set-logic ALL_SUPPORTED)"
+// val () = println! "(set-logic ALL_SUPPORTED)"
+// Z3 complains about this one
 val () = begin
+  //
   sort_declare_abstract("cls");
   sort_declare_abstract("eff");
   sort_declare_abstract("type");  
   sort_declare_abstract("t0ype");
   sort_declare_abstract("tkind");
+  //
+  sort_declare_alias("float", "Real");
+  sort_declare_alias("float64", "Float64");
+  //
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()
@@ -365,6 +371,7 @@ val () = list_foreach<s2rtdat> (s2rtmap)
 
 (** Declare all uninterpreted functions *)
 val s2cs = the_s2cstmap_listize ()
+
 implement
 list_filter$pred<s2cst>(s2cst) = let
   val stamp = s2cst.stamp()

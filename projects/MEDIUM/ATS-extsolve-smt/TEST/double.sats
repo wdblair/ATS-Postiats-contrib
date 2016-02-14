@@ -2,6 +2,9 @@ staload "./float.sats"
 
 abst@ype double (f: float) = $extype "double"
 
+stacst float_to_float64: float -> float
+stadef fp64 = float_to_float64
+
 fun
 abs {f:float} (
   x: double (f)
@@ -53,6 +56,11 @@ fun
 fma_double_double {x,y,z:float} (
   x: double (x), y: double (y), z: double(z)
 ): double (fma_float_float_float(x,y,z)) = "mac#%"
+
+fun
+sqrt_double {x:float | x >= fp64(0.0)} (
+  x: double (x)
+): double (sqrt(x)) = "mac#%"
 
 fun
 lt_double_double {x,y:float} (

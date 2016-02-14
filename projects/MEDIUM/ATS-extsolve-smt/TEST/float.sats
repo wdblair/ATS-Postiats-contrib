@@ -18,6 +18,9 @@ stadef mod = rem_float_float
 
 stacst fma_float_float_float : (float, float, float) -> float
 
+stacst sqrt_float : float -> float
+stadef sqrt = sqrt_float
+
 stacst lt_float_float : (float, float) -> bool
 stadef < = lt_float_float
 

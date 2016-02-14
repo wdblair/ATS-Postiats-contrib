@@ -164,6 +164,7 @@ val () = insert("neq_bool_bool", S2CINTbuiltin_2(formula_bneq))
 //
 val () = insert("abs_float", S2CINTbuiltin_1(formula_fpabs))
 val () = insert("neg_float", S2CINTbuiltin_1(formula_fpneg))
+val () = insert("sqrt_float", S2CINTbuiltin_1(formula_fpsqrt))
 //
 val () = insert("add_float_float", S2CINTbuiltin_2(formula_fpadd))
 val () = insert("sub_float_float", S2CINTbuiltin_2(formula_fpsub))
@@ -190,11 +191,10 @@ val () = insert("float_is_nan", S2CINTbuiltin_1(formula_fp_is_nan))
 val () = insert("float_is_negative", S2CINTbuiltin_1(formula_fp_is_negative))
 val () = insert("float_is_positive", S2CINTbuiltin_1(formula_fp_is_positive))
 //
-val () = insert("abs_int", S2CINTbuiltin_1(formula_iabs))
-val () = insert("sgn_int", S2CINTbuiltin_1(formula_isgn))
+val () = insert("float_to_float64", S2CINTbuiltin_1(formula_float_to_fp64))
 //
-val () = insert("max_int_int", S2CINTbuiltin_2(formula_imax))
-val () = insert("min_int_int", S2CINTbuiltin_2(formula_imin))
+val () = insert("max_float_float", S2CINTbuiltin_2(formula_fpmax))
+val () = insert("min_float_float", S2CINTbuiltin_2(formula_fpmin))
 //
 val () = insert("add_addr_int", S2CINTbuiltin_2(formula_iadd))
 val () = insert("sub_addr_int", S2CINTbuiltin_2(formula_isub))

@@ -32,6 +32,7 @@ case+ name of
 | "int" => S2RTint()
 | "addr" => S2RTaddr()
 | "bool" => S2RTbool()
+| "float" => S2RTreal()
 //
 | "cls" => S2RTeff()
 | "eff" => S2RTeff()

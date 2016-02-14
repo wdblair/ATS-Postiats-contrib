@@ -110,6 +110,8 @@ fun sort_mk_tkind (): sort
 //
 fun sort_declare_abstract (name: string): void
 //
+fun sort_declare_alias (alias: string, sort: string): void
+//
 fun sort_mk_abstract (name: string): sort
 //
 (* ****** ****** *)
@@ -208,6 +210,8 @@ fun formula_fp_is_infinite (form): form
 fun formula_fp_is_nan (form): form
 fun formula_fp_is_negative (form): form
 fun formula_fp_is_positive (form): form
+//
+fun formula_float_to_fp64 (form): form
 //
 (* ****** ****** *)
 //

@@ -142,6 +142,7 @@ in
   unit_p ()
 end
 
+////
 prfun
 append_length_lemma {xs,ys:slist} .<>.
   (): [length(append(xs, ys)) == (length(xs) + length(ys))] unit_p = let
