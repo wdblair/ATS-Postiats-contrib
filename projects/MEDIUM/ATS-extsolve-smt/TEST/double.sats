@@ -1,104 +1,101 @@
 staload "./float.sats"
 
-abst@ype double (f: float) = $extype "double"
-
-stacst float_to_float64: float -> float
-stadef fp64 = float_to_float64
+abst@ype double (f: float64) = $extype "double"
 
 fun
-abs {f:float} (
+abs {f:float64} (
   x: double (f)
-): double (abs_float(f)) = "mac#%"
+): double (abs_float64(f)) = "mac#%"
 
 fun
-neg_double {f:float} (
+neg_double {f:float64} (
   x: double (f)
-): double (neg_float(f)) = "mac#%"
+): double (neg_float64(f)) = "mac#%"
 
 overload ~ with neg_double
 
 fun
-add_double_double {x,y:float} (
+add_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): double (x + y) = "mac#%"
 
 overload + with add_double_double 
 
 fun
-sub_double_double {x,y:float} (
+sub_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): double(x-y) = "mac#%"
 
 overload - with sub_double_double
 
 fun
-mul_double_double {x,y:float} (
+mul_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): double(x*y) = "mac#%"
 
 overload * with mul_double_double
 
 fun
-div_double_double {x,y:float} (
+div_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): double(x*y) = "mac#%"
 
 overload / with div_double_double
 
 fun
-rem_double_double {x,y:float} (
+rem_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): double(x mod y) = "mac#%"
 
 overload mod with rem_double_double
 
 fun
-fma_double_double {x,y,z:float} (
+fma_double_double {x,y,z:float64} (
   x: double (x), y: double (y), z: double(z)
-): double (fma_float_float_float(x,y,z)) = "mac#%"
+): double (fma_float64_float64_float64(x,y,z)) = "mac#%"
 
 fun
-sqrt_double {x:float | x >= fp64(0.0)} (
+sqrt_double {x:float64 | x >= fp64(0.0)} (
   x: double (x)
 ): double (sqrt(x)) = "mac#%"
 
 fun
-lt_double_double {x,y:float} (
+lt_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): bool (x < y) = "mac#%"
 
 overload < with lt_double_double
 
 fun
-lte_double_double {x,y:float} (
+lte_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): bool (x <= y) = "mac#%"
 
 overload <= with lte_double_double
 
 fun
-gt_double_double {x,y:float} (
+gt_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): bool (x > y) = "mac#%"
 
 overload > with gt_double_double
 
 fun
-gte_double_double {x,y:float} (
+gte_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): bool (x >= y) = "mac#%"
 
 overload >= with gte_double_double
 
 fun
-eq_double_double {x,y:float} (
+eq_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): bool (x == y) = "mac#%"
 
 overload = with eq_double_double
 
 fun
-neq_double_double {x,y:float} (
+neq_double_double {x,y:float64} (
   x: double (x), y: double (y)
 ): bool (x != y) = "mac#%"
 
