@@ -47,7 +47,8 @@ formula_to_smtlib (f) = f
 
 (* ****** ****** *)
 
-fun formlst_to_smtlib
+fun 
+formlst_to_smtlib
   (fs: formlst): SMTAst = let
     val opr = copy("")
 in
@@ -465,45 +466,54 @@ in
 end
 
 implement
-formula_fp_is_subnormal (x): form = let
+formula_fp_is_subnormal (x) = let
   val opr = copy ("fp.isSubNormal")
 in
   Apply(opr, x :: nil)
 end
 
 implement
-formula_fp_is_zero (x): form = let
+formula_fp_is_zero (x) = let
   val opr = copy ("fp.isZero")
 in
   Apply(opr, x :: nil)
 end
 
 implement
-formula_fp_is_infinite (x): form = let
+formula_fp_is_infinite (x) = let
   val opr = copy ("fp.isInfinite")
 in
   Apply(opr, x :: nil)
 end
 
 implement
-formula_fp_is_nan (x): form = let
+formula_fp_is_nan (x) = let
   val opr = copy ("fp.isNan")
 in
   Apply(opr, x :: nil)
 end
 
 implement
-formula_fp_is_negative (x): form = let
+formula_fp_is_negative (x) = let
   val opr = copy ("fp.isNegative")
 in
   Apply(opr, x :: nil)
 end
 
 implement
-formula_fp_is_positive (x): form = let
+formula_fp_is_positive (x) = let
   val opr = copy ("fp.isPositive")
 in
   Apply(opr, x :: nil)
+end
+
+(** TODO: parameterize this by the length of the number *)
+
+implement
+formula_float_to_fp64 (x) = let
+  val opr = copy("(_ to_fp 11 53)")
+in
+  Apply(opr, Atom(copy("RNE")) :: x :: nil)
 end
 
 (* ****** ****** *)
@@ -1434,7 +1444,7 @@ implement
 formula_make_s2exp
   (env, s2e0) = let
 //
-(*
+(**
 val () =
 println!
   ("formula_make_s2exp: s2e0 = ", s2e0)
@@ -1448,6 +1458,7 @@ of // case+
 //
 | S2Eint(i) => formula_int(i)
 | S2Eintinf(rep) => formula_intrep(rep)
+| S2Efloat(rep) => formula_intrep(rep)
 //
 | S2Ecst _ => aux_S2Ecst(env, s2e0)
 | S2Evar _ => aux_S2Evar(env, s2e0)

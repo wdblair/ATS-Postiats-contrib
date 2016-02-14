@@ -126,6 +126,12 @@ implement
 sort_declare_abstract
   (name) = println! ("(declare-sort ", name, " 0)")
 
+implement
+sort_declare_alias
+  (alias, sort) = println! ("(define-sort ", alias, 
+                            " ()", 
+                            " (",sort, "))")
+                            
 (*
 implement
 sort_mk_abstract(name) = sort_int()

@@ -1,9 +1,16 @@
-all:: test
+all:: show-double double
 
 show: glist.dats
 	patsopt --constraint-export -tc -d $^ | ../patsolve_smt -i
 
-test: glist.dats
+show-double: double.dats
+	patsopt --constraint-export -tc -d $^ | ../patsolve_smt -i
+
+double: double.dats
+	patsopt --constraint-export -tc -d $^ | ../patsolve_smt -i | z3 -smt2 -in
+
+# build system doesn't have CVC4 at the moment
+cvc4: glist.dats
 	patsopt --constraint-export -tc -d $^ | ../patsolve_smt -i | cvc4+ig --lang smt2
 
 z3: glist.dats

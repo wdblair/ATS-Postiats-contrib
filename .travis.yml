@@ -17,6 +17,8 @@ before_install:
   - ${TRAVIS_BUILD_DIR}/travis-ci/installpkg.sh
   - cd ${HOME}
   - mkdir pkg
+  - mkdir pkg/include
+  - mkdir pkg/lib  
   - export CFLAGS="-Wno-unused-but-set-variable"
   - (cd json-c-0.12 && ./configure --prefix=${HOME}/pkg && make all && make install)
   - cd ${HOME}
@@ -26,6 +28,11 @@ before_install:
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
   - export PKG_CONFIG_PATH=${HOME}/pkg/lib/pkgconfig/
   - export LD_LIBRARY_PATH=${HOME}/pkg/lib/
+  - export C_INCLUDE_PATH=${HOME}/pkg/include/
+  - wget https://github.com/Z3Prover/z3/releases/download/z3-4.4.1/z3-4.4.1-x64-ubuntu-14.04.zip
+  - unzip z3-4.4.1-x64-ubuntu-14.04.zip
+  - (cd z3-4.4.1-x64-ubuntu-14.04 && cp bin/lib* ${HOME}/pkg/lib/ && cp include/* ${HOME}/pkg/include/)
+  
 script:
   # Building ATS2
   - export PATSHOME=${HOME}/ATS2-srcfrg
