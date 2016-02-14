@@ -1,50 +1,55 @@
-stacst abs_float : (float) -> float
-stacst neg_float : (float) -> float
+datasort float64 = (* abstract *)
 
-stacst add_float_float : (float, float) -> float
-stadef + = add_float_float
+stacst abs_float64 : (float64) -> float64
+stacst neg_float64 : (float64) -> float64
 
-stacst sub_float_float : (float, float) -> float
-stadef - = sub_float_float
+stacst add_float64_float64 : (float64, float64) -> float64
+stadef + = add_float64_float64
 
-stacst mul_float_float : (float, float) -> float
-stadef * = mul_float_float
+stacst sub_float64_float64 : (float64, float64) -> float64
+stadef - = sub_float64_float64
 
-stacst div_float_float : (float, float) -> float
-stadef / = div_float_float
+stacst mul_float64_float64 : (float64, float64) -> float64
+stadef * = mul_float64_float64
 
-stacst rem_float_float : (float, float) -> float
-stadef mod = rem_float_float
+stacst div_float64_float64 : (float64, float64) -> float64
+stadef / = div_float64_float64
 
-stacst fma_float_float_float : (float, float, float) -> float
+stacst rem_float64_float64 : (float64, float64) -> float64
+stadef mod = rem_float64_float64
 
-stacst sqrt_float : float -> float
-stadef sqrt = sqrt_float
+stacst fma_float64_float64_float64 : (float64, float64, float64) -> float64
 
-stacst lt_float_float : (float, float) -> bool
-stadef < = lt_float_float
+stacst sqrt_float64 : float64 -> float64
+stadef sqrt = sqrt_float64
 
-stacst lte_float_float : (float, float) -> bool
-stadef <= = lte_float_float
+stacst lt_float64_float64 : (float64, float64) -> bool
+stadef < = lt_float64_float64
 
-stacst gt_float_float : (float, float) -> bool
-stadef > = gt_float_float
+stacst lte_float64_float64 : (float64, float64) -> bool
+stadef <= = lte_float64_float64
 
-stacst gte_float_float : (float, float) -> bool
-stadef >= = gte_float_float
+stacst gt_float64_float64 : (float64, float64) -> bool
+stadef > = gt_float64_float64
 
-stacst eq_float_float : (float, float) -> bool
-stadef == = eq_float_float
+stacst gte_float64_float64 : (float64, float64) -> bool
+stadef >= = gte_float64_float64
 
-stacst neq_float_float : (float, float) -> bool
-stadef != = neq_float_float
+stacst eq_float64_float64 : (float64, float64) -> bool
+stadef == = eq_float64_float64
 
-stacst float_round : float -> float
+stacst neq_float64_float64 : (float64, float64) -> bool
+stadef != = neq_float64_float64
 
-stacst float_is_normal : float -> bool
-stacst float_is_subnormal : float -> bool
-stacst float_is_zero : float -> bool
-stacst float_is_infinite : float -> bool
-stacst float_is_nan : float -> bool
-stacst float_is_negative : float -> bool
-stacst float_is_positive : float -> bool
+stacst float64_round : float64 -> float64
+
+stacst float64_is_normal : float64 -> bool
+stacst float64_is_subnormal : float64 -> bool
+stacst float64_is_zero : float64 -> bool
+stacst float64_is_infinite : float64 -> bool
+stacst float64_is_nan : float64 -> bool
+stacst float64_is_negative : float64 -> bool
+stacst float64_is_positive : float64 -> bool
+
+stacst float_to_float64: float -> float64
+stadef fp64 = float_to_float64

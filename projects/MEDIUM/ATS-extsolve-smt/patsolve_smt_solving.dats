@@ -360,7 +360,6 @@ val () = begin
   //
   sort_declare_alias("float", "Real");
   sort_declare_alias("float64", "Float64");
-  //
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()

@@ -86,11 +86,8 @@ sort_real () = res where
     converting them to floats in the statics will 
     allow us to capture their actual meaning in the
     program.
-    
-    For now, assume "real" is just a 64bit floating point
-    number.
   *)
-  val res = Atom(copy("Float64"))
+  val res = Atom(copy("Real"))
 }
 
 (* ****** ****** *)
@@ -256,7 +253,7 @@ sort_declare_s2rtdat (s2rtdat) = let
 in
   case+ constructors of
     | ~list_vt_nil () => 
-      sort_declare_abstract (name.name())
+      () (** Don't declare it, an alias should be made in the constraint solver. *)
     | _ =>> let 
       val cs = 
         list_vt_mapfree_fun<SMTAst><Strptr1>(constructors, lam c => c.to_string())

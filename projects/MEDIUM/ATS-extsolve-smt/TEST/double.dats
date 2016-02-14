@@ -1,5 +1,6 @@
 staload UN = "prelude/SATS/unsafe.sats"
 
+staload "float.sats"
 staload "double.sats"
 
 #define
