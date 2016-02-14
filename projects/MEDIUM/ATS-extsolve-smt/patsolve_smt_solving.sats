@@ -76,6 +76,11 @@ fun sort_int (): sort
 fun sort_bool (): sort
 //
 fun sort_real (): sort
+(**
+  In SMT-LIB Floats are parameterized by their
+  size, so we can have two separate sorts
+*)
+fun sort_float (): sort
 //
 fun sort_bv (int): sort
 //
@@ -103,7 +108,7 @@ fun sort_mk_tkind (): sort
 //
 (* ****** ****** *)
 //
-fun sort_declare_abstract(name: string): void
+fun sort_declare_abstract (name: string): void
 //
 fun sort_mk_abstract (name: string): sort
 //
@@ -164,6 +169,45 @@ fun formula_igt (form, form): form
 fun formula_igte (form, form): form
 fun formula_ieq (form, form): form
 fun formula_ineq (form, form): form
+//
+(* ****** ****** *)
+//
+fun formula_fpabs (form): form
+//
+fun formula_fpneg (form): form
+//
+fun formula_fpadd (form, form): form
+fun formula_fpsub (form, form): form
+//
+fun formula_fpmul (form, form): form
+//
+fun formula_fpdiv (form, form): form
+//
+(** fused multiple and addition *)
+val formula_fpfma (formlst):<cloref1> form
+//
+fun formula_fpsqrt (form): form
+fun formula_fprem (form, form): form
+//
+fun formula_fpround (form): form
+//
+fun formula_fpmin (form, form): form
+fun formula_fpmax (form, form): form
+//
+fun formula_fplt (form, form): form
+fun formula_fplte (form, form): form
+fun formula_fpgt (form, form): form
+fun formula_fpgte (form, form): form
+fun formula_fpeq (form, form): form
+fun formula_fpneq (form, form): form
+//
+fun formula_fp_is_normal (form): form
+fun formula_fp_is_subnormal (form): form
+fun formula_fp_is_zero (form): form
+fun formula_fp_is_infinite (form): form
+fun formula_fp_is_nan (form): form
+fun formula_fp_is_negative (form): form
+fun formula_fp_is_positive (form): form
 //
 (* ****** ****** *)
 //

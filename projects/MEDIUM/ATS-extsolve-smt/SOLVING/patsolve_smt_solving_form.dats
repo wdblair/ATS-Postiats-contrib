@@ -35,9 +35,15 @@ assume func_decl_vtype = ref(func_decl_record)
 
 (* ****** ****** *)
 
+(** TODO: make this a parameter given at run-time
+    This is the default rounding mode used by gcc
+*)
+val rounding_mode = "RNE" (** Round to Nearest Even*)
+
+(* ****** ****** *)
+
 implement
-formula_to_smtlib 
-  (f) = f
+formula_to_smtlib (f) = f
 
 (* ****** ****** *)
 
@@ -77,10 +83,11 @@ formula_incref
       }
       | Apply(opr, args) => ast2 where {
         val opr2 = strptr1_copy(opr)
-        
+        //
         implement 
         list_vt_map$fopr<SMTAst><SMTAst>(x) =
           formula_incref(x)
+        //
         val args2 = list_vt_map<SMTAst><SMTAst>(args)
         val ast2 = Apply(opr2, args2)
       }
@@ -313,6 +320,191 @@ formula_imin
   in
     formula_cond(formula_ilte(x, y), x', y')
   end  
+
+(* ****** ****** *)
+
+implement
+formula_fpabs (n) = let
+  val opr = copy("fp.abs")
+in
+  Apply(opr, n :: nil)
+end
+
+implement
+formula_fpneg (n) = let
+  val opr = copy("fp.neg")
+in
+  Apply(opr, n :: nil)
+end
+
+implement
+formula_fpadd (x, y) = let
+  val opr = copy("fp.add")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fpsub (x, y) = let
+  val opr = copy("fp.sub")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: y :: nil)
+end
+
+implement
+formula_fpmul (x, y) = let
+  val opr = copy("fp.mul")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: y :: nil)
+end
+
+implement
+formula_fpdiv (x, y) = let
+  val opr = copy("fp.div")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: y :: nil)
+end
+
+implement
+formula_fpfma (arg) = let
+  val opr = copy("fp.fma")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: arg)
+end
+
+implement
+formula_fpsqrt (x) = let
+  val opr = copy("fp.sqrt")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: nil)
+end
+
+implement
+formula_fprem (x, y) = let
+  val opr = copy("fp.rem")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fpround (x) = let
+  val opr = copy("fp.roundToIntegral")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: nil)
+end
+
+implement
+formula_fpmin (x, y) = let
+  val opr = copy("fp.min")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: y :: nil)
+end
+
+implement
+formula_fpmax (x, y) = let
+  val opr = copy("fp.max")
+  val mode = copy(rounding_mode)
+in
+  Apply(opr, Atom(mode) :: x :: y :: nil)
+end
+
+implement
+formula_fplt (x, y) = let
+  val opr = copy("fp.lt")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fplte (x, y) = let
+  val opr = copy("fp.leq")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fpgt (x, y) = let
+  val opr = copy("fp.gt")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fpgte (x, y) = let
+  val opr = copy("fp.geq")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fpeq (x, y) = let
+  val opr = copy("fp.eq")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_fpneq (x, y) = let
+  val eq = formula_fpeq (x, y)
+in
+  formula_not (eq)
+end
+
+implement
+formula_fp_is_normal (x) = let
+  val opr = copy ("fp.isNormal")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_fp_is_subnormal (x): form = let
+  val opr = copy ("fp.isSubNormal")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_fp_is_zero (x): form = let
+  val opr = copy ("fp.isZero")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_fp_is_infinite (x): form = let
+  val opr = copy ("fp.isInfinite")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_fp_is_nan (x): form = let
+  val opr = copy ("fp.isNan")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_fp_is_negative (x): form = let
+  val opr = copy ("fp.isNegative")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_fp_is_positive (x): form = let
+  val opr = copy ("fp.isPositive")
+in
+  Apply(opr, x :: nil)
+end
 
 (* ****** ****** *)
 

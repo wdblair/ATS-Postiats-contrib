@@ -79,7 +79,18 @@ sort_bool () = res where
 implement
 sort_real () = res where
 {
-  val res = Atom(copy("Real"))
+  (** 
+    I think there should be separate sorts for
+    reals and floats because often the user will
+    specify constants using real numbers, whereas
+    converting them to floats in the statics will 
+    allow us to capture their actual meaning in the
+    program.
+    
+    For now, assume "real" is just a 64bit floating point
+    number.
+  *)
+  val res = Atom(copy("Float64"))
 }
 
 (* ****** ****** *)
