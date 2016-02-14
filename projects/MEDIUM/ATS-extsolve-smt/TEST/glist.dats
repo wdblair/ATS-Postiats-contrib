@@ -142,7 +142,6 @@ in
   unit_p ()
 end
 
-(**
 prfun
 append_length_lemma {xs,ys:slist} .<>.
   (): [length(append(xs, ys)) == (length(xs) + length(ys))] unit_p = let
@@ -157,8 +156,8 @@ append_length_lemma {xs,ys:slist} .<>.
 in
   unit_p ()
 end
-*)
 
+////
 fun
 contents_lemma {a:t@ype} {xs:slist}
   (xs: list(a, xs)): [ys:slist | contents(xs) == contents(ys)] list(a, ys) = let
