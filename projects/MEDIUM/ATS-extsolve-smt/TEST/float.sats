@@ -1,7 +1,10 @@
 datasort float64 = (* abstract *)
 
 stacst abs_float64 : (float64) -> float64
+stadef abs = abs_float64
+
 stacst neg_float64 : (float64) -> float64
+stadef neg = neg_float64
 
 stacst add_float64_float64 : (float64, float64) -> float64
 stadef + = add_float64_float64
@@ -53,3 +56,6 @@ stacst float64_is_positive : float64 -> bool
 
 stacst float_to_float64: float -> float64
 stadef fp64 = float_to_float64
+
+stacst float64_to_float: float64 -> float
+stadef to_real = float64_to_float

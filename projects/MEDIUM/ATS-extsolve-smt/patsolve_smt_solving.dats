@@ -369,14 +369,14 @@ val () = begin
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()
-
+//
 implement
 list_foreach$fwork<s2rtdat><void>(s2rt, v) = sort_declare_s2rtdat(s2rt)
 val () = list_foreach<s2rtdat> (s2rtmap)
-
+//
 (** Declare all uninterpreted functions *)
 val s2cs = the_s2cstmap_listize ()
-
+//
 implement
 list_filter$pred<s2cst>(s2cst) = let
   val stamp = s2cst.stamp()
@@ -407,11 +407,9 @@ end
 val s2cs = list_of_list_vt (
   list_filter<s2cst>(s2cs)
 )
-
 implement
 list_foreach$fwork<s2cst><void>(s2rt, v) = declare_s2cst(s2rt)
 val () = list_foreach<s2cst> (s2cs)
-
 //
 val env = smtenv_create()
 //
