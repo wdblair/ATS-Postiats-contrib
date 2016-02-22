@@ -162,6 +162,11 @@ val () = insert("gte_bool_bool", S2CINTbuiltin_2(formula_bgte))
 val () = insert("eq_bool_bool", S2CINTbuiltin_2(formula_beq))
 val () = insert("neq_bool_bool", S2CINTbuiltin_2(formula_bneq))
 //
+val () = insert("sgn_float", S2CINTbuiltin_1(formula_rsgn))
+val () = insert("gte_float_float", S2CINTbuiltin_2(formula_rgte))
+val () = insert("lt_float_float", S2CINTbuiltin_2(formula_rlt))
+//
+val () = insert("sgn_float64", S2CINTbuiltin_1(formula_fpsgn))
 val () = insert("abs_float64", S2CINTbuiltin_1(formula_fpabs))
 val () = insert("neg_float64", S2CINTbuiltin_1(formula_fpneg))
 val () = insert("sqrt_float64", S2CINTbuiltin_1(formula_fpsqrt))
@@ -192,6 +197,7 @@ val () = insert("float64_is_negative", S2CINTbuiltin_1(formula_fp_is_negative))
 val () = insert("float64_is_positive", S2CINTbuiltin_1(formula_fp_is_positive))
 //
 val () = insert("float_to_float64", S2CINTbuiltin_1(formula_float_to_fp64))
+val () = insert("float64_to_float", S2CINTbuiltin_1(formula_fp64_to_float))
 //
 val () = insert("max_float64_float64", S2CINTbuiltin_2(formula_fpmax))
 val () = insert("min_float64_float64", S2CINTbuiltin_2(formula_fpmin))

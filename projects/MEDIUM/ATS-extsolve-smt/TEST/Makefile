@@ -8,6 +8,7 @@ show-double: double.dats
 
 double: double.dats
 	patsopt --constraint-export -tc -d $^ | ../patsolve_smt -i | z3 -smt2 -in
+	patscc --constraint-ignore double.dats -o double
 
 # build system doesn't have CVC4 at the moment
 cvc4: glist.dats

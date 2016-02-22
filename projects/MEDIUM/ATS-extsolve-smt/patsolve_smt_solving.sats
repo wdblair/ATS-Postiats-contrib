@@ -176,6 +176,8 @@ fun formula_ineq (form, form): form
 //
 (* ****** ****** *)
 //
+fun formula_fpsgn (form): form
+//
 fun formula_fpabs (form): form
 //
 fun formula_fpneg (form): form
@@ -214,6 +216,14 @@ fun formula_fp_is_negative (form): form
 fun formula_fp_is_positive (form): form
 //
 fun formula_float_to_fp64 (form): form
+fun formula_fp64_to_float (form): form
+//
+(* ****** ****** *)
+//
+fun formula_rsgn (form): form
+//
+fun formula_rgte (form, form): form
+fun formula_rlt (form, form): form
 //
 (* ****** ****** *)
 //

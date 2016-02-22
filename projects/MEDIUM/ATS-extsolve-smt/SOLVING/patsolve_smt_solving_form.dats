@@ -446,6 +446,38 @@ formula_imin
 (* ****** ****** *)
 
 implement
+formula_rsgn (n) = let
+  val gte = formula_rgte(n, formula_intrep("0.0"))
+  val cond = formula_cond(gte, formula_int(1), formula_int(~1))
+in
+  cond
+end
+
+implement
+formula_rgte (x, y): form = let
+  val opr = copy(">=")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_rlt (x, y): form = let
+  val opr = copy("<")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+(* ****** ****** *)
+
+implement
+formula_fpsgn (n) = let
+  val gte = formula_fpgte(n, Atom(copy("(_ +zero 11 53)")))
+  val cond = formula_cond(gte, formula_int(1), formula_int(~1))
+in
+  cond
+end
+
+implement
 formula_fpabs (n) = let
   val opr = copy("fp.abs")
 in
@@ -462,8 +494,9 @@ end
 implement
 formula_fpadd (x, y) = let
   val opr = copy("fp.add")
+  val mode = copy(rounding_mode)
 in
-  Apply(opr, x :: y :: nil)
+  Apply(opr, Atom(mode) :: x :: y :: nil)
 end
 
 implement
@@ -635,6 +668,13 @@ formula_float_to_fp64 (x) = let
   val opr = copy("(_ to_fp 11 53)")
 in
   Apply(opr, Atom(copy("RNE")) :: x :: nil)
+end
+
+implement
+formula_fp64_to_float (x) = let
+  val opr = copy("fp.to_real")
+in
+  Apply(opr, x :: nil)
 end
 
 (* ****** ****** *)
