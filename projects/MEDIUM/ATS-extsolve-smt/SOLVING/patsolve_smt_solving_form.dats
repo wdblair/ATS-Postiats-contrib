@@ -95,6 +95,49 @@ formula_incref
       
 (* ****** ****** *)
 
+
+implement formula_bag_empty () = res where {
+  val opr = string0_copy "bag_emp"
+  val res = Atom (opr)
+} 
+implement formula_bag_add (s, e) = res where {
+  val opr = string0_copy "bag_add"
+  val res = Apply (opr, s :: e :: nil)
+} 
+implement formula_bag_del (s, e) = res where {
+  val opr = string0_copy "bag_del"
+  val res = Apply (opr, s :: e :: nil)
+} 
+implement formula_bag_union (s1, s2) = res where {
+  val opr = string0_copy "bag_cup"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+implement formula_bag_diff (s1, s2) = res where {
+  val opr = string0_copy "bag_dif"
+  val res = Apply (opr, s1 :: s2 :: nil)
+}
+implement formula_bag_join (s1, s2) = res where {
+  val opr = string0_copy "bag_jon"
+  val res = Apply (opr, s1 :: s2 :: nil)
+}
+implement formula_bag_intersect (s1, s2) = res where {
+  val opr = string0_copy "bag_cap"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+implement formula_bag_member (s, e) = res where {
+  val opr = string0_copy "bag_mem"
+  val res = Apply (opr, s :: e :: nil)
+} 
+implement formula_bag_eq (s1, s2) = res where {
+  val opr = string0_copy "bag_eq"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+
+(* ****** ****** *)
+
+
+
+
 implement
 formula_null
   ((*void*)) = formula_int(0)

@@ -88,6 +88,8 @@ fun sort_fp (): sort
 (*
 fun sort_string (): sort
 *)
+
+
 (* ****** ****** *)
 
 fun sort_mk_cls (): sort
@@ -235,6 +237,28 @@ fun formula_bgt (form, form): form
 fun formula_bgte (form, form): form
 fun formula_beq (form, form): form
 fun formula_bneq (form, form): form
+
+(* ****** ****** *)
+(* custom support for multisets/bags *)
+(* ****** ****** *)
+
+fun plugin_bag (): void // prints out the theory of bag 
+
+fun sort_bag (): sort 
+fun sort_bag_elt (): sort 
+
+fun formula_bag_empty (): form 
+fun formula_bag_add (form, form): form 
+fun formula_bag_del (form, form): form 
+fun formula_bag_union (form, form): form 
+fun formula_bag_diff (form, form): form
+fun formula_bag_join (form, form): form
+fun formula_bag_intersect (form, form): form 
+fun formula_bag_member (form, form): form 
+fun formula_bag_eq (form, form): form 
+(* ****** ****** *)
+
+
 //
 (* ****** ****** *)
 //

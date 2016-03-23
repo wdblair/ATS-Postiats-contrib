@@ -62,6 +62,14 @@ sort_incref
         val ast2 = Apply(opr2, args2)
       }
 
+
+
+implement sort_bag () = Atom(copy("Bag"))
+implement sort_bag_elt () = Atom(copy("BagElt"))
+
+
+
+
 (* ****** ****** *)
 
 implement 
@@ -89,6 +97,7 @@ sort_real () = res where
   *)
   val res = Atom(copy("Real"))
 }
+
 
 (* ****** ****** *)
 
