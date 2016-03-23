@@ -360,6 +360,8 @@ val () = begin
   //
   sort_declare_alias("float", "Real");
   sort_declare_alias("float64", "Float64");
+
+  plugin_bag();
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()
@@ -469,6 +471,15 @@ local
 //
 #include "./SOLVING/patsolve_smt_solving_form.dats"
 //
+in
+  // nothing
+end // end of [local]
+
+local
+//
+#include "./SOLVING/patsolve_smt_solving_plugin.dats"
+//
+
 in
   // nothing
 end // end of [local]

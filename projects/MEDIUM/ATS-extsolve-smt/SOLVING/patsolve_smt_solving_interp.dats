@@ -208,6 +208,16 @@ val () = insert("eq_addr_addr", S2CINTbuiltin_2(formula_ieq))
 val () = insert("neq_addr_addr", S2CINTbuiltin_2(formula_ineq))
 (** Not very precise, but makes sense in smt... *)
 val () = insert("==", S2CINTbuiltin_2(formula_eqeq))
+
+val () = insert("bag_emp", S2CINTbuiltin_0(formula_bag_empty))
+val () = insert("bag_add", S2CINTbuiltin_2(formula_bag_add))
+val () = insert("bag_del", S2CINTbuiltin_2(formula_bag_del))
+val () = insert("bag_cup", S2CINTbuiltin_2(formula_bag_union))
+val () = insert("bag_dif", S2CINTbuiltin_2(formula_bag_diff))
+val () = insert("bag_jon", S2CINTbuiltin_2(formula_bag_join))
+val () = insert("bag_cap", S2CINTbuiltin_2(formula_bag_intersect))
+val () = insert("bag_mem", S2CINTbuiltin_2(formula_bag_member))
+val () = insert("bag_eq", S2CINTbuiltin_2(formula_bag_eq))
 //
 (*
 val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))
