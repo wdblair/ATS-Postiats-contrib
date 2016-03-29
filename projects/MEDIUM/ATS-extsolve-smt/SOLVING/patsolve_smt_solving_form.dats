@@ -95,6 +95,15 @@ formula_incref
       
 (* ****** ****** *)
 
+implement formula_bag_remove (s, e) = res where {
+  val opr = string0_copy "bag_rmv"
+  val res = Apply (opr, s :: e :: nil)
+}
+
+implement formula_bag_cardinality (s, e) = res where {
+  val opr = string0_copy "bag_car"
+  val res = Apply (opr, s :: e :: nil)
+} 
 
 implement formula_bag_empty () = res where {
   val opr = string0_copy "bag_emp"
