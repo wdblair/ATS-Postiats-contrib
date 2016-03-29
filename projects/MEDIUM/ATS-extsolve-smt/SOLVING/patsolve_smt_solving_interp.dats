@@ -218,6 +218,8 @@ val () = insert("bag_jon", S2CINTbuiltin_2(formula_bag_join))
 val () = insert("bag_cap", S2CINTbuiltin_2(formula_bag_intersect))
 val () = insert("bag_mem", S2CINTbuiltin_2(formula_bag_member))
 val () = insert("bag_eq", S2CINTbuiltin_2(formula_bag_eq))
+val () = insert("bag_car", S2CINTbuiltin_2(formula_bag_cardinality))
+val () = insert("bag_rmv", S2CINTbuiltin_2(formula_bag_remove))
 //
 (*
 val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))
