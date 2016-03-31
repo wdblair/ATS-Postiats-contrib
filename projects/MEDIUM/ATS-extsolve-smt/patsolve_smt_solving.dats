@@ -302,6 +302,8 @@ c3nstr_solve_main
 ) = let
 //
 val loc0 = c3t.c3nstr_loc
+
+val _ = println! ("(echo \"", $UN.cast{string}loc0, "\")")
 //
 var status: int =
 (
