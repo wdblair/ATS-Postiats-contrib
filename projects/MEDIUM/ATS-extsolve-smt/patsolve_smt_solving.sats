@@ -260,6 +260,37 @@ fun formula_bag_cardinality (form, form): form
 fun formula_bag_remove (form, form): form
 (* ****** ****** *)
 
+(* ****** ****** *)
+(* custom support for set *)
+(* ****** ****** *)
+fun plugin_set (): void // prints out the theory of bag 
+
+fun sort_set (): sort 
+fun sort_set_elt (): sort 
+
+fun formula_set_empty (): form 
+fun formula_set_add (form, form): form 
+fun formula_set_del (form, form): form 
+fun formula_set_union (form, form): form 
+fun formula_set_diff (form, form): form
+fun formula_set_intersect (form, form): form 
+fun formula_set_member (form, form): form 
+fun formula_set_eq (form, form): form 
+(* ****** ****** *)
+
+(* ****** ****** *)
+(* custom support for list *)
+(* ****** ****** *)
+fun plugin_list (): void 
+
+fun sort_list (): sort 
+fun sort_list_elt (): sort 
+
+fun formula_list_hd (form): form
+fun formula_list_tl (form): form
+fun formula_list_nil (): form
+fun formula_list_cons (form, form): form
+fun formula_list_eq (form, form): form
 
 //
 (* ****** ****** *)

@@ -220,6 +220,22 @@ val () = insert("bag_mem", S2CINTbuiltin_2(formula_bag_member))
 val () = insert("bag_eq", S2CINTbuiltin_2(formula_bag_eq))
 val () = insert("bag_car", S2CINTbuiltin_2(formula_bag_cardinality))
 val () = insert("bag_rmv", S2CINTbuiltin_2(formula_bag_remove))
+
+val () = insert("set_emp", S2CINTbuiltin_0(formula_set_empty))
+val () = insert("set_add", S2CINTbuiltin_2(formula_set_add))
+val () = insert("set_del", S2CINTbuiltin_2(formula_set_del))
+val () = insert("set_cup", S2CINTbuiltin_2(formula_set_union))
+val () = insert("set_dif", S2CINTbuiltin_2(formula_set_diff))
+val () = insert("set_cap", S2CINTbuiltin_2(formula_set_intersect))
+val () = insert("set_mem", S2CINTbuiltin_2(formula_set_member))
+val () = insert("set_eq", S2CINTbuiltin_2(formula_set_eq))
+
+val () = insert("list_hd", S2CINTbuiltin_1(formula_list_hd))
+val () = insert("list_tl", S2CINTbuiltin_1(formula_list_tl))
+val () = insert("list_nil", S2CINTbuiltin_0(formula_list_nil))
+val () = insert("list_cons", S2CINTbuiltin_2(formula_list_cons))
+val () = insert("list_eq", S2CINTbuiltin_2(formula_list_eq))
+
 //
 (*
 val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))
