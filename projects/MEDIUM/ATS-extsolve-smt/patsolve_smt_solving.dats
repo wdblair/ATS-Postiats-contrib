@@ -364,6 +364,8 @@ val () = begin
   sort_declare_alias("float64", "Float64");
 
   plugin_bag();
+  plugin_set();
+  plugin_list();
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()

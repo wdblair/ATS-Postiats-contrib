@@ -144,6 +144,67 @@ implement formula_bag_eq (s1, s2) = res where {
 
 (* ****** ****** *)
 
+implement formula_set_empty () = res where {
+  val opr = string0_copy "set_emp"
+  val res = Atom (opr)
+} 
+implement formula_set_add (s, e) = res where {
+  val opr = string0_copy "set_add"
+  val res = Apply (opr, s :: e :: nil)
+} 
+implement formula_set_del (s, e) = res where {
+  val opr = string0_copy "set_del"
+  val res = Apply (opr, s :: e :: nil)
+} 
+implement formula_set_union (s1, s2) = res where {
+  val opr = string0_copy "set_cup"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+implement formula_set_diff (s1, s2) = res where {
+  val opr = string0_copy "set_dif"
+  val res = Apply (opr, s1 :: s2 :: nil)
+}
+implement formula_set_intersect (s1, s2) = res where {
+  val opr = string0_copy "set_cap"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+implement formula_set_member (s, e) = res where {
+  val opr = string0_copy "set_mem"
+  val res = Apply (opr, s :: e :: nil)
+} 
+implement formula_set_eq (s1, s2) = res where {
+  val opr = string0_copy "set_eq"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+
+(* ****** ****** *)
+
+
+
+implement formula_list_hd (l) = res where {
+  val opr = string0_copy "list_hd"
+  val res = Apply (opr, l :: nil)
+}
+implement formula_list_tl (l) = res where {
+  val opr = string0_copy "list_tl"
+  val res = Apply (opr, l :: nil)
+}
+implement formula_list_nil () = res where {
+  val opr = string0_copy "list_nil"
+  val res = Atom (opr)
+}
+implement formula_list_cons (e, l) = res where {
+  val opr = string0_copy "list_cons"
+  val res = Apply (opr, e :: l :: nil)
+}
+implement formula_list_eq (l1, l2) = res where {
+  val opr = string0_copy "list_eq"
+  val res = Apply (opr, l1 :: l2 :: nil)
+}
+
+
+(* ****** ****** *)
+
 
 
 
@@ -1466,11 +1527,11 @@ aux_S2Eexi
 val
 s2t0 = s2e0.s2exp_srt
 //
-(*
-val () =
-println!
-  ("aux_S2Eexi: s2t0 = ", s2t0)
-*)
+
+//val () =
+//println!
+//  ("aux_S2Eexi: s2t0 = ", s2t0)
+
 //
 val-
 S2Eexi

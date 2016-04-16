@@ -66,7 +66,10 @@ sort_incref
 
 implement sort_bag () = Atom(copy("Bag"))
 implement sort_bag_elt () = Atom(copy("BagElt"))
-
+implement sort_set () = Atom(copy("Set"))
+implement sort_set_elt () = Atom(copy("SetElt"))
+implement sort_list () = Atom(copy("MyList"))
+implement sort_list_elt () = Atom(copy("ListElt"))
 
 
 
@@ -203,7 +206,16 @@ case+ s2t0 of
 | S2RTtkind() => sort_mk_tkind()
 //
 | S2RTnamed(sym) =>
-    sort_mk_abstract(sym.name())
+    (
+    case+ sym.name() of
+    | "Bag" => sort_bag ()
+    | "BagElt" => sort_bag_elt ()
+    | "Set" => sort_set ()
+    | "SetElt" => sort_set_elt ()
+    | "List" => sort_list ()
+    | "ListElt" => sort_list_elt ()
+    | _ => sort_mk_abstract(sym.name())
+    )
   // end of [S2RTnamed]
 //
 | _(*rest-of-S2RT*) => sort_error(s2t0)

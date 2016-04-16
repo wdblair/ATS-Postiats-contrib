@@ -12,13 +12,7 @@
 #endif // end of [ifndef]
 //
 (* ****** ****** *)
-//
-staload UN = "prelude/SATS/unsafe.sats"
-//
 
-
-#define :: cons_vt
-#define nil nil_vt
 
 implement plugin_bag () = () where {
 
@@ -26,9 +20,11 @@ implement plugin_bag () = () where {
 	val _ = println! "(define-sort Bag () (Array BagElt Int))"
 
 	val _ = println! "(define-fun bag_emp () Bag ((as const Bag) 0))"
-	val _ = println! "(define-fun bag_mem ((s Bag) (x BagElt)) Bool (> (select s x) 0))"
-	val _ = println! "(define-fun bag_add ((s Bag) (x BagElt)) Bag  (store s x (+ (select s x) 1)))"
-	val _ = println! "(define-fun bag_del ((s Bag) (x BagElt)) Bag  (store s x (ite (> (select s x) 0) (- (select s x) 1) 0)))"
+  val _ = println! "(define-fun bag_car ((s Bag) (x BagElt)) Int (select s x))"
+	val _ = println! "(define-fun bag_mem ((s Bag) (x BagElt)) Bool (> (bag_car s x) 0))"
+
+	val _ = println! "(define-fun bag_add ((s Bag) (x BagElt)) Bag  (store s x (+ (bag_car s x) 1)))"
+	val _ = println! "(define-fun bag_del ((s Bag) (x BagElt)) Bag  (store s x (ite (bag_mem s x) (- (bag_car s x) 1) 0)))"
 	val _ = println! "(define-fun bag_rmv ((s Bag) (x BagElt)) Bag  (store s x 0))"
 
 	val _ = println! "(declare-fun bag_fun_del (Int Int) Int)"
@@ -46,12 +42,37 @@ implement plugin_bag () = () where {
 	val _ = println! "(define-fun bag_sub ((s1 Bag) (s2 Bag)) Bool (= bag_emp (bag_dif s2 s1)))"
 	val _ = println! "(define-fun bag_eq  ((s1 Bag) (s2 Bag)) Bool (= s1 s2))"
 
-	val _ = println! "(define-fun bag_car ((s Bag) (x BagElt)) Int (select s x))"
+}
 
-//	val _ = println! "(declare-fun bag_fun_1 (Int) Int)"
-//	val _ = println! "(assert (forall ((x Int)) (= (bag_fun_1 x) (ite (>= x 1) 1 0))))"
-//	val _ = println! "(define-fun bag_set ((s Bag)) Bag ((_ map bag_fun_1) s))"
+implement plugin_set () = () where {
+  val _ = println! "(declare-sort SetElt 0)"
+  val _ = println! "(define-sort Set () (Array SetElt Bool))"
 
+  val _ = println! "(define-fun set_emp () Set ((as const Set) false))"
+  val _ = println! "(define-fun set_mem ((s Set) (x SetElt)) Bool (select s x))"
+  val _ = println! "(define-fun set_add ((s Set) (x SetElt)) Set  (store s x true))"
+  val _ = println! "(define-fun set_del ((s Set) (x SetElt)) Set  (store s x false))"
+
+  val _ = println! "(define-fun set_cup ((s1 Set) (s2 Set)) Set ((_ map or) s1 s2))"
+  val _ = println! "(define-fun set_cap ((s1 Set) (s2 Set)) Set ((_ map and) s1 s2))"
+
+  val _ = println! "(declare-fun set_fun_dif (Bool Bool) Bool)"
+  val _ = println! "(assert (forall ((x Bool) (y Bool)) (= (set_fun_dif x y) (ite (= x false) false (ite (= y true) false true)))))"
+  val _ = println! "(define-fun set_dif ((s1 Set) (s2 Set)) Set ((_ map set_fun_dif) s1 s2))"
+
+  val _ = println! "(define-fun set_sub ((s1 Set) (s2 Set)) Bool (= set_emp (set_dif s2 s1)))"
+  val _ = println! "(define-fun set_eq  ((s1 Set) (s2 Set)) Bool (= s1 s2))"
+}
+
+implement plugin_list () = () where {
+  val _ = println! "(declare-sort ListElt 0)"
+  val _ = println! "(define-sort MyList () (List ListElt))"
+
+  val _ = println! "(define-fun list_hd ((l MyList)) ListElt (head l))"
+  val _ = println! "(define-fun list_tl ((l MyList)) MyList (tail l))"
+  val _ = println! "(define-fun list_nil () MyList nil)"
+  val _ = println! "(define-fun list_cons ((e ListElt) (l MyList)) MyList (insert e l))"
+  val _ = println! "(define-fun list_eq ((x MyList) (y MyList)) Bool (= x y))"
 }
 
 ////
