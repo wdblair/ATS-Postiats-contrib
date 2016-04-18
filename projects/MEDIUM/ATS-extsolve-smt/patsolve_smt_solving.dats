@@ -365,7 +365,7 @@ val () = begin
 
   plugin_bag();
   plugin_set();
-  plugin_list();
+//  plugin_list();
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()

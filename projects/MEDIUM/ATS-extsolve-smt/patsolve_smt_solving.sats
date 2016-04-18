@@ -256,6 +256,7 @@ fun formula_bag_join (form, form): form
 fun formula_bag_intersect (form, form): form 
 fun formula_bag_member (form, form): form 
 fun formula_bag_eq (form, form): form 
+fun formula_bag_subset (form, form): form 
 fun formula_bag_cardinality (form, form): form
 fun formula_bag_remove (form, form): form
 (* ****** ****** *)
@@ -276,6 +277,8 @@ fun formula_set_diff (form, form): form
 fun formula_set_intersect (form, form): form 
 fun formula_set_member (form, form): form 
 fun formula_set_eq (form, form): form 
+fun formula_set_sub (form, form): form 
+
 (* ****** ****** *)
 
 (* ****** ****** *)

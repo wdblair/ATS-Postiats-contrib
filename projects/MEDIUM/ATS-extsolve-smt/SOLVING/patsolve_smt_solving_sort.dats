@@ -1,9 +1,3 @@
-(*
-##
-## ATS-extsolve-smt:
-## Solving ATS-constraints with SMT
-##
-*)
 
 (* ****** ****** *)
 //
@@ -208,12 +202,12 @@ case+ s2t0 of
 | S2RTnamed(sym) =>
     (
     case+ sym.name() of
-    | "Bag" => sort_bag ()
-    | "BagElt" => sort_bag_elt ()
-    | "Set" => sort_set ()
-    | "SetElt" => sort_set_elt ()
-    | "List" => sort_list ()
-    | "ListElt" => sort_list_elt ()
+//    | "Bag" => sort_bag ()
+//    | "BagElt" => sort_bag_elt ()
+//    | "Set" => sort_set ()
+//    | "SetElt" => sort_set_elt ()
+//    | "List" => sort_list ()
+//    | "ListElt" => sort_list_elt ()
     | _ => sort_mk_abstract(sym.name())
     )
   // end of [S2RTnamed]
