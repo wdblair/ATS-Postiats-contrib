@@ -141,6 +141,10 @@ implement formula_bag_eq (s1, s2) = res where {
   val opr = string0_copy "bag_eq"
   val res = Apply (opr, s1 :: s2 :: nil)
 } 
+implement formula_bag_subset (s1, s2) = res where {
+  val opr = string0_copy "bag_sub"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
 
 (* ****** ****** *)
 
@@ -174,6 +178,10 @@ implement formula_set_member (s, e) = res where {
 } 
 implement formula_set_eq (s1, s2) = res where {
   val opr = string0_copy "set_eq"
+  val res = Apply (opr, s1 :: s2 :: nil)
+} 
+implement formula_set_sub (s1, s2) = res where {
+  val opr = string0_copy "set_sub"
   val res = Apply (opr, s1 :: s2 :: nil)
 } 
 
