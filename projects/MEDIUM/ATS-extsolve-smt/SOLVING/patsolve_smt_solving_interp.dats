@@ -65,6 +65,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
+exception DuplicateS2CInterp of (string)
+
 local
 //
 val
@@ -77,8 +79,11 @@ s2cinterp_insert
 ) : void =
 {
 //
-val-~None_vt() =
-  myhashtbl_insert(the_s2cinterp_map, name, itm)
+val replaced = myhashtbl_insert(the_s2cinterp_map, name, itm)
+val () = (case+ replaced of
+  | ~None_vt() => ()
+  | ~Some_vt(_) => $raise DuplicateS2CInterp(name)
+): void
 // end of [val]
 } (* end of [s2cinterp_insert] *)
 //

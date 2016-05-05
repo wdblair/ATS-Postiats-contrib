@@ -1,4 +1,4 @@
-#include "share/atspre_staload.hats"
+// #include "share/atspre_staload.hats"
 
 staload UN = "prelude/SATS/unsafe.sats"
 
@@ -15,6 +15,27 @@ val PI_ =
 //
 val PI_sqrt = sqrt_double(PI_)
 //
+
+fun
+quadratic_formula {b,a,c: float64} (
+  b: double (b), a: double (a), c: double (c)
+): double(b*b - (fp64(4.0) * a * c)) = let
+  val b2 = b*b
+  val ac = $UN.cast{double(fp64(4.0))}(4.0) * a * c
+in
+  b2 - ac
+end
+
+implement
+main0 (argc, argv) = {
+  val b = $UN.cast{double(fp64(3.34))}(3.34)
+  val a = $UN.cast{double(fp64(1.22))}(1.22)
+  val c = $UN.cast{double(fp64(2.28))}(2.28)
+  val r = quadratic_formula (b, a, c)
+//  val () = println! ("Answer: ", r)
+}
+
+////
 (**
 An example of a simple decision to turn the plane left or right
 
