@@ -524,7 +524,7 @@ c3nstrkind =
 //
   | C3TKignored of () // HX-2015-06-06: ignored c3nstrkind
 // end of [c3nstrkind]
-
+    
 datatype s3itm =
   | S3ITMsvar of s2var
   | S3ITMsVar of s2Var

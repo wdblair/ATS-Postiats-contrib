@@ -297,7 +297,7 @@ end // end of [c3nstr_solve_solverify]
 
 implement
 c3nstr_solve_main
-(
+( 
   env, c3t, unsolved, nerr
 ) = let
 //
