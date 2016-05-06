@@ -129,7 +129,9 @@ fun sort_declare_s2rtdat (s2rtdat): void
 (* ****** ****** *)
 //
 fun sort_to_smtlib (sort): SMTAst
-//
+
+fun formula_identity (form): form
+
 fun formula_null (): form
 
 fun formula_true (): form
@@ -173,6 +175,9 @@ fun formula_igt (form, form): form
 fun formula_igte (form, form): form
 fun formula_ieq (form, form): form
 fun formula_ineq (form, form): form
+//
+fun formula_isqrt (form): form
+fun formula_ipow (form, form): form
 //
 (* ****** ****** *)
 //
@@ -224,6 +229,7 @@ fun formula_rsgn (form): form
 //
 fun formula_rgte (form, form): form
 fun formula_rlt (form, form): form
+fun formula_rdiv (form, form): form
 //
 (* ****** ****** *)
 //

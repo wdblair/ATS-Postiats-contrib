@@ -95,6 +95,11 @@ formula_incref
       
 (* ****** ****** *)
 
+implement
+formula_identity (n) = n
+
+(* ****** ****** *)
+
 implement formula_bag_remove (s, e) = res where {
   val opr = string0_copy "bag_rmv"
   val res = Apply (opr, s :: e :: nil)
@@ -443,6 +448,20 @@ formula_imin
     formula_cond(formula_ilte(x, y), x', y')
   end  
 
+implement
+formula_isqrt (x) = let
+  val opr = copy("sqrt")
+in
+  Apply(opr, x :: nil)
+end
+
+implement
+formula_ipow (x, n) = let
+  val opr = copy("pow")
+in
+  Apply(opr, x :: n :: nil)
+end
+
 (* ****** ****** *)
 
 implement
@@ -463,6 +482,13 @@ end
 implement
 formula_rlt (x, y): form = let
   val opr = copy("<")
+in
+  Apply(opr, x :: y :: nil)
+end
+
+implement
+formula_rdiv (x, y): form = let
+  val opr = copy("/")
 in
   Apply(opr, x :: y :: nil)
 end

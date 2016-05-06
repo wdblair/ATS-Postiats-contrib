@@ -208,6 +208,7 @@ case+ s2t0 of
 //    | "SetElt" => sort_set_elt ()
 //    | "List" => sort_list ()
 //    | "ListElt" => sort_list_elt ()
+    | "real" => sort_real()
     | _ => sort_mk_abstract(sym.name())
     )
   // end of [S2RTnamed]
@@ -235,7 +236,9 @@ sort_declare_s2rtdat (s2rtdat) = let
         val stamp = s2cst.stamp()
         val sym = s2cst.name()
         val name = sym.name()
-        val id = stringlst_concat(list_cons(name, list_cons("!", list_cons(strptr2string(g0int2string(stamp_get_int(stamp))), list_nil()))))
+        val id = stringlst_concat(
+          list_cons(name, list_cons("!", list_cons(strptr2string(g0int2string(stamp_get_int(stamp))), list_nil())))
+        )
         val- S2RTfun(args, res) = s2cst.srt()
         val n = length(args)
         fun range (n:int, res:List0(int)): List0(int) =

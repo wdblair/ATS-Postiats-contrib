@@ -200,7 +200,7 @@ val ((*void*)) = env_s.smtenv_s2varlst := s2vs
 val ((*void*)) = env_s.smtenv_s2varlstlst := s2vss
 //
 prval ((*folded*)) = fold@(env)
-val () = println!("(pop)")
+val () = println!("(pop 1)")
 //
 in
   // nothing
@@ -222,7 +222,7 @@ val ((*void*)) = env_s.smtenv_s2varlstlst := cons_vt(s2vs, s2vss)
 //
 prval ((*folded*)) = fold@(env)
 //
-val () = println!("(push)")
+val () = println!("(push 1)")
 //
 in
   (unit_v() | ())
@@ -319,7 +319,7 @@ smtenv_formula_solve
   (env, s2p0) = let
 //
 val () =
-  println! ("(push)")
+  println! ("(push 1)")
 //
 val s2p1 = formula_not(s2p0)
 val ast = formula_to_smtlib(s2p1)
@@ -330,7 +330,7 @@ val () = free (cmd)
 val () = println! ("(check-sat)")
 //
 val () =
-  println! ("(pop)")
+  println! ("(pop 1)")
 //
 in
   (** We're not interacting with the external solver yet, 
@@ -338,6 +338,7 @@ in
   lfalse
 //
 end (* end of [smtenv_formula_solve] *)
+
 (* ****** ****** *)
 
 (* end of [patsolve_z3_solving_smtenv.dats] *)

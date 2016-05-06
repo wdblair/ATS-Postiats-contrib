@@ -303,7 +303,7 @@ c3nstr_solve_main
 //
 val loc0 = c3t.c3nstr_loc
 
-val _ = println! ("(echo \"", $UN.cast{string}loc0, "\")")
+// val _ = println! ("(echo \"", $UN.cast{string}loc0, "\")")
 //
 var status: int =
 (
@@ -362,7 +362,8 @@ val () = begin
   //
   sort_declare_alias("float", "Real");
   sort_declare_alias("float64", "Float64");
-
+  sort_declare_alias("real", "Real");
+  
   plugin_bag();
   plugin_set();
 //  plugin_list();
