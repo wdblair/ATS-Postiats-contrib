@@ -15,10 +15,14 @@ staload
 staload
 "libats/DATS/number/real_double.dats"
 //
+staload
+ModelCheck = "./modelcheck.sats"
+//
 (* ****** ****** *)
 
 stacst g : real
 stacst dt : real
+stacst time: real
 
 (* ****** ****** *)
 
@@ -95,6 +99,26 @@ in
     then loop2(mode2_flow(state)) else loop1(mode2_jump(state))
   // end of [if]
 end // end of [loop2]
+
+extern
+prfun
+make_state {m:mode} (): [x:real][v:real] state(m, x, v)
+ 
+(** Define initial state and the range of possible values for the state *)
+prval [x:real] [v:real] state = make_state{M1}()
+
+(** Define range of interest *)
+prval () = $ModelCheck.define_range{x}(int2real(0), int2real(20))
+prval () = $ModelCheck.define_range{v}(int2real(~100), int2real(100))
+
+prval () = $ModelCheck.initial_value{x}(int2real(10))
+prval () = $ModelCheck.initial_value{v}(int2real(0))
+
+(** Bound the amount of time *)
+prval () = $ModelCheck.define_range{time}(int2real(0), int2real(10))
+
+(** Is the following state reachable in this model? *)
+prval () = $ModelCheck.add_goal{x == i2r(10) && v > i2r(10)}()
 
 (* ****** ****** *)
 
