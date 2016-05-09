@@ -219,6 +219,28 @@ val () = insert("float64_to_float", S2CINTbuiltin_1(formula_fp64_to_float))
 val () = insert("max_float64_float64", S2CINTbuiltin_2(formula_fpmax))
 val () = insert("min_float64_float64", S2CINTbuiltin_2(formula_fpmin))
 //
+val () = insert("sgn_float", S2CINTbuiltin_1(formula_fpsgn))
+val () = insert("abs_float", S2CINTbuiltin_1(formula_fpabs))
+val () = insert("neg_float", S2CINTbuiltin_1(formula_fpneg))
+val () = insert("sqrt_float", S2CINTbuiltin_1(formula_fpsqrt))
+//
+val () = insert("add_float_float", S2CINTbuiltin_2(formula_fpadd))
+val () = insert("sub_float_float", S2CINTbuiltin_2(formula_fpsub))
+//
+val () = insert("mul_float_float", S2CINTbuiltin_2(formula_fpmul))
+val () = insert("div_float_float", S2CINTbuiltin_2(formula_fpdiv))
+val () = insert("rem_float_float", S2CINTbuiltin_2(formula_fprem))
+val () = insert("fma_float_float", S2CINTbuiltin_list(formula_fpfma))
+//
+val () = insert("lt_float_float", S2CINTbuiltin_2(formula_fplt))
+val () = insert("lte_float_float", S2CINTbuiltin_2(formula_fplte))
+val () = insert("gt_float_float", S2CINTbuiltin_2(formula_fpgt))
+val () = insert("gte_float_float", S2CINTbuiltin_2(formula_fpgte))
+val () = insert("eq_float_float", S2CINTbuiltin_2(formula_fpeq))
+val () = insert("neq_float_float", S2CINTbuiltin_2(formula_fpneq))
+//
+val () = insert("float_round", S2CINTbuiltin_1(formula_fpround))
+//
 val () = insert("add_addr_int", S2CINTbuiltin_2(formula_iadd))
 val () = insert("sub_addr_int", S2CINTbuiltin_2(formula_isub))
 val () = insert("sub_addr_addr", S2CINTbuiltin_2(formula_isub))

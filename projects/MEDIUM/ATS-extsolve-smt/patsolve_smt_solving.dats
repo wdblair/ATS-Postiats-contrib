@@ -360,13 +360,13 @@ val () = begin
   sort_declare_abstract("t0ype");
   sort_declare_abstract("tkind");
   //
-  sort_declare_alias("float", "Real");
   sort_declare_alias("float64", "Float64");
+  sort_declare_alias("float", "Float64");
   sort_declare_alias("real", "Real");
-  
-  plugin_bag();
-  plugin_set();
-//  plugin_list();
+  //
+//plugin_bag();
+//plugin_set();
+//plugin_list();
 end
 (** Declare all datasorts *)
 val s2rtmap = the_s2rtdatmap_get()

@@ -143,6 +143,7 @@ fun formula_unit_p (): form
 
 fun formula_int (i: int): form
 fun formula_intrep (rep: string): form
+fun formula_floatrep (rep: string): form
 
 (* ****** ****** *)
 //

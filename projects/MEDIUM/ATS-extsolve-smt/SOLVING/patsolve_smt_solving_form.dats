@@ -256,6 +256,15 @@ formula_intrep(i) = i2 where
 }
 
 implement
+formula_floatrep (x) = let
+  (** Should parameterize this by the width of floating point *)
+  val opr = copy("(_ to_fp 11 53)")
+  val x' = Atom(string0_copy(x))
+in
+  Apply(opr, Atom(copy("RNE")) :: x' :: nil)
+end
+
+implement
 formula_not
   (f) = res where
 {
@@ -1645,7 +1654,7 @@ of // case+
 //
 | S2Eint(i) => formula_int(i)
 | S2Eintinf(rep) => formula_intrep(rep)
-| S2Efloat(rep) => formula_intrep(rep)
+| S2Efloat(rep) => formula_floatrep(rep)
 //
 | S2Ecst _ => aux_S2Ecst(env, s2e0)
 | S2Evar _ => aux_S2Evar(env, s2e0)
