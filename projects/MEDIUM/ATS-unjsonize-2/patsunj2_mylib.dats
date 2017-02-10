@@ -23,6 +23,11 @@
 //
 (* ****** ****** *)
 
+#include
+"mydepies.hats"
+
+(* ****** ****** *)
+
 staload "{$JSONC}/DATS/json.dats"
 
 (* ****** ****** *)

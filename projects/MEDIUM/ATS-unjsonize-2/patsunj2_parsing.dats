@@ -26,6 +26,9 @@ ATS_DYNLOADNAME
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+#include
+"mydepies.hats"
+(* ****** ****** *)
 //
 staload
 UN = "prelude/SATS/unsafe.sats"
@@ -37,6 +40,12 @@ HF = "libats/SATS/hashfun.sats"
 staload
 HTR = "libats/ML/SATS/hashtblref.sats"
 //
+(* ****** ****** *)
+
+staload _ = "libats/ML/DATS/list0.dats"
+staload _ = "libats/ML/DATS/hashtblref.dats"
+staload _ = "libats/DATS/hashfun.dats"
+
 (* ****** ****** *)
 
 staload "{$JSONC}/SATS/json.sats"

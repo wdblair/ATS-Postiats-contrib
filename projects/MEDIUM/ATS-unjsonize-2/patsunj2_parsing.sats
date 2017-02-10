@@ -21,6 +21,9 @@ ATS_PACKNAME "PATSUNJ2"
 "share/atspre_define.hats"
 //
 (* ****** ****** *)
+#include
+"mydepies.hats"
+(* ****** ****** *)
 //
 staload
 "{$JSONC}/SATS/json_ML.sats"

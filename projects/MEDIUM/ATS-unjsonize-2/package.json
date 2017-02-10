@@ -1,0 +1,31 @@
+{
+    "name":
+    "atscntrb-ats-unjsonize"
+    ,
+    "version": "0.0.1"
+    ,
+    "description":
+    "For parsing ATS syntax trees"
+    ,
+    "main": "N/A"
+    ,
+    "scripts": {}
+    ,
+    "repository": {
+        "url": "https://github.com/githwxi/ATS-Postiats-contrib/tree/master/projects/MEDIUM/ATS-unjsonize-2"
+    }
+    ,
+    "keywords": [
+        "ATS",
+        "meta-programming"
+    ]
+    ,
+    "dependencies": {
+        "atscntrb-libjson-c": "1.0.1"
+    }
+    ,
+    "author":
+    "Hongwei Xi <gmhwxi@gmail.com>"
+    ,
+    "license": "MIT"
+}

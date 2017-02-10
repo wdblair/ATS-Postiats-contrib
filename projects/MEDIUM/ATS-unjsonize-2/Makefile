@@ -105,8 +105,14 @@ OBJECTS += $(OBJECTS_DATS_O)
 
 ######
 
+CFLAGS += -I ./node_modules
+
+######
+
 PATSCC2 = $(PATSCC) $(CFLAGS)
 PATSCC3 = $(PATSCC) $(CFLAGS) $(CFLAGS2)
+
+export PATSHOMELOCS=./node_modules:./../../node_modules
 
 ######
 #
