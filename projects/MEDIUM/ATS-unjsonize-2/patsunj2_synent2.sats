@@ -10,6 +10,23 @@
 *)
 
 (* ****** ****** *)
+
+typedef lstord(a:type) = List0(a)
+
+(* ****** ****** *)
+
+datatype
+valkind =
+  | VK_val // val
+  | VK_val_pos // val+
+  | VK_val_neg // val-
+(*
+  | VK_mcval // mcval: for model-checking
+*)
+  | VK_prval // prval: for theorem-proving
+// end of [valkind]
+
+(* ****** ****** *)
 //
 abst0ype
 stamp_t0ype = int
@@ -262,6 +279,7 @@ s2exp_node= s2exp_node
 } (* end of [s2exp] *)
 //
 and s2explst = List0 (s2exp)
+and s2expopt = Option (s2exp)
 and labs2explst = List0 (labs2exp)
 //
 (* ****** ****** *)
@@ -323,6 +341,15 @@ abstype d2var_type = ptr
 typedef d2var = d2var_type
 typedef d2varlst = List0(d2var)
 
+fun
+d2var_get_stamp(d2var): stamp
+
+fun
+d2var_get_symbol(d2var): symbol
+
+(* ****** ****** *)
+
+
 (* ****** ****** *)
 //
 fun print_d2var : (d2var) -> void
@@ -334,10 +361,89 @@ overload fprint with fprint_d2var
 (* ****** ****** *)
 
 datatype
+p2at_node =
+//
+  | P2Tany of () // wildcard
+  | P2Tvar of d2var // mutability determined by the context
+//
+// constructor pattern
+//
+  | P2Tint of int
+  | P2Tintrep of string
+//
+  | P2Tbool of bool
+  | P2Tchar of char
+  | P2Tfloat of string(*rep*)
+  | P2Tstring of string
+//
+  | P2Tempty of ()
+//
+  | P2Tlst of (int(*lin*), p2atlst) // pattern list
+  | P2Trec of (int(*knd*), int(*npf*), labp2atlst)
+//
+  | P2Trefas of (d2var, p2at)
+//
+  | P2Texist of (s2varlst, p2at) // existential opening
+//
+  | P2Tvbox of d2var // vbox pattern for handling references
+//
+  | P2Tann of (p2at, s2exp) // no s2Var in the ascribed type
+//
+  | P2Tlist of (int(*npf*), p2atlst)
+//
+  | P2Terrpat of () // HX: placeholder for indicating an error
+// end of [p2at_node]
+
+and labp2at =
+  | LABP2ATnorm of (label, p2at)
+  | LABP2ATomit of ( loc_t ) // for [...]
+// end of [labp2at]
+
+where
+p2at = '{
+  p2at_loc= loc_t
+, p2at_svs= lstord(s2var)
+, p2at_dvs= lstord(d2var)
+, p2at_type= s2expopt // ref@ (s2expopt)
+, p2at_node= p2at_node
+} (* end of [p2at] *)
+
+and p2atlst = List (p2at)
+and p2atopt = Option (p2at)
+
+and labp2atlst = List (labp2at)
+
+(* ****** ****** *)
+
+datatype
+s2exparg_node =
+  | S2EXPARGone (* {..} *)
+  | S2EXPARGall (* {...} *)
+  | S2EXPARGseq of s2explst
+// end of [s2exparg_node]
+
+typedef
+s2exparg = '{
+  s2exparg_loc= location, s2exparg_node= s2exparg_node
+} (* end of [s2exparg] *)
+
+typedef s2exparglst = List (s2exparg)
+
+(* ****** ****** *)
+
+datatype
 d2exp_node =
   | D2Ecst of d2cst
   | D2Evar of d2var
+  | D2Elam_dyn of (* boxed dynamic abstraction *)
+    (int(*lin*), int(*npf*), p2atlst(*arg*), d2exp(*body*))
+  | D2Eapplst of (d2exp, d2exparglst)
 // end of [d2exp_node]
+
+and d2exparg =
+  | D2EXPARGsta of (loc_t(*arg*), s2exparglst)
+  | D2EXPARGdyn of (int(*npf*), loc_t(*arg*), d2explst)
+// end of [d2exparg]
 
 where
 d2exp = $rec{
@@ -348,8 +454,8 @@ d2exp_node= d2exp_node
 //
 } (* end of [d2exp] *)
 
-and d2explst = List0(d2exp)
-
+and d2explst = List0 (d2exp)
+and d2exparglst = List0 (d2exparg)
 (* ****** ****** *)
 //
 fun print_d2exp : (d2exp) -> void
@@ -368,8 +474,10 @@ overload fprint with fprint_d2explst of 10
 
 datatype
 d2ecl_node =
-  | D2Cnone of () // for something already erased
-  | D2Clist of d2eclist // for list of declarations
+  | D2Cnone    of ()         // for something already erased
+  | D2Clist    of d2eclist   // for list of declarations
+  | D2Cvaldecs_rec of
+      (valkind, v2aldeclst)  // (recursive) value declarations
   | D2Cignored of ((*void*)) // for ignored declarations
 // end of [d2ecl_node]
 
@@ -383,6 +491,15 @@ d2ecl_node= d2ecl_node
 } (* end of [d2ecl] *)
 
 and d2eclist = List0(d2ecl)
+
+and v2aldec = $rec{
+  v2aldec_loc= loc_t
+, v2aldec_pat= p2at
+, v2aldec_def= d2exp
+, v2aldec_ann= s2expopt // [withtype] annotation
+} (* end of [v2aldec] *)
+
+and v2aldeclst = List (v2aldec)
 
 (* ****** ****** *)
 //

@@ -48,10 +48,6 @@ staload "./patsunj2_synent2.sats"
 staload "./patsunj2_parsing.sats"
 
 (* ****** ****** *)
-
-staload _(*anon*) = "libc/DATS/string.dats"
-
-(* ****** ****** *)
 //
 implement
 $HTR.hash_key<stamp> (x) = hash_stamp(x)
@@ -180,8 +176,19 @@ end // end of [parse_option]
 local
 //
 #include
-"./PARSING/patsunj2_parsing_label.dats" in (*nothing*)
+"./PARSING/patsunj2_parsing_label.dats"
 //
+#include
+"./PARSING/patsunj2_parsing_d2var.dats"
+//
+#include
+"./PARSING/patsunj2_parsing_d2ecl.dats"
+#include
+"./PARSING/patsunj2_parsing_valkind.dats"
+#include
+"./PARSING/patsunj2_parsing_v2aldec.dats" in (*nothing*)
+//
+
 end // end of [local]
 //
 (* ****** ****** *)

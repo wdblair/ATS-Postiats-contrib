@@ -49,6 +49,10 @@ staload
 //
 (* ****** ****** *)
 
+exception InvalidJSON of ()
+
+(* ****** ****** *)
+
 fun hash_stamp(stamp):<> ulint
 
 (* ****** ****** *)
@@ -84,6 +88,26 @@ a:t@ype
 
 (* ****** ****** *)
 
+fun parse_valkind(jsv: jsonval): valkind
+
+fun parse_v2aldec(jsv: jsonval): v2aldec
+
+fun parse_v2aldeclst(jsv: jsonval): v2aldeclst
+
+(* ****** ****** *)
+
+fun parse_p2at(jsv: jsonval): p2at
+
+(* ****** ****** *)
+
+fun parse_d2var (jsv: jsonval): d2var
+
+fun d2var_of_stamp_exn (st: stamp): d2var
+
+exception D2varNotDefined of (stamp)
+
+(* ****** ****** *)
+
 fun parse_s2rt (jsnv: jsonval): s2rt
 fun parse_s2rtlst (jsnv: jsonval): s2rtlst
 
@@ -91,6 +115,7 @@ fun parse_s2rtlst (jsnv: jsonval): s2rtlst
 
 fun parse_s2exp (jsnv: jsonval): s2exp
 fun parse_s2explst (jsnv: jsonval): s2explst
+fun parse_s2expopt (jsv: jsonval): s2expopt
 
 (* ****** ****** *)
 
@@ -105,6 +130,10 @@ fun parse_d2eclist (jsnv: jsonval): d2eclist
 (* ****** ****** *)
 
 fun parse_fileref_d2eclist (filr: FILEref): d2eclist
+
+(* ****** ****** *)
+
+fun parse_filepath_d2eclist (path: string): d2eclist
 
 (* ****** ****** *)
 

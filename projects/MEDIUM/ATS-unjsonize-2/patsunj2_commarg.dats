@@ -24,11 +24,6 @@ ATS_DYNLOADNAME
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-//
-staload
-STDIO = "libc/SATS/stdio.sats"
-//
-(* ****** ****** *)
 
 staload "./patsunj2_parsing.sats"
 
@@ -224,14 +219,12 @@ fun
 process_arg
   (x: commarg): void = let
 //
-(*
 val () =
 fprintln!
 (
   stdout_ref
 , "patsunj2_commarglst: process_arg: x = ", x
 ) (* end of [val] *)
-*)
 //
 in
 //
@@ -354,8 +347,9 @@ case+ opt of
     val () = !the_state.inpfil_ref := filr
 //
     val d2cs = parse_fileref_d2eclist(filr)
-    val ((*void*)) = fprint(stdout_ref, d2cs)
-    val ((*void*)) = fprint_newline (stdout_ref)
+    //val ((*void*)) = fprint(stdout_ref, d2cs)
+    //val ((*void*)) = fprint_newline (stdout_ref)
+    val () = println! "filename not supported!"
 //
   } (* end of [Some_vt] *)
 //
