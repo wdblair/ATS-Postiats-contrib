@@ -21,7 +21,8 @@
     ]
     ,
     "dependencies": {
-        "atscntrb-libjson-c": "1.0.1"
+        "atscntrb-libjson-c": "1.0.1",
+        "atscntrb-ats-argparse": "0.0.1"
     }
     ,
     "author":

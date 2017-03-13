@@ -56,12 +56,14 @@ exception InvalidJSON of ()
 
 (* ****** ****** *)
 
-fun hash_stamp(stamp):<> ulint
-
-(* ****** ****** *)
-
 fun parse_int (jsnv: jsonval): int
 fun parse_string (jsnv: jsonval): string
+
+fun {t:t@ype}
+parse_list$parse(jsonval): t
+
+fun {t:t@ype}
+parse_list (js: jsonval): List0(t)
 
 (* ****** ****** *)
 
@@ -72,14 +74,6 @@ fun parse_location (jsnv: jsonval): loc_t
 (* ****** ****** *)
 
 fun parse_label (jsnv: jsonval): label
-
-(* ****** ****** *)
-
-fun{
-a:t@ype
-} parse_list
-  (jsnv: jsonval, f: jsonval -> a): List0(a)
-// end of [parse_list]
 
 (* ****** ****** *)
 
@@ -101,9 +95,20 @@ fun parse_v2aldeclst(jsv: jsonval): v2aldeclst
 
 fun parse_p2at(jsv: jsonval): p2at
 
+fun parse_p2atlst(jsv: jsonval): p2atlst
+
 (* ****** ****** *)
 
+fun parse_d2cst(jsv: jsonval): d2cst
+
+fun d2cst_of_stmap_exn(stamp): d2cst
+
+(* ****** ****** *)
+
+
 fun parse_d2var (jsv: jsonval): d2var
+
+fun parse_d2varmap(jsv: jsonval): void
 
 fun d2var_of_stamp_exn (st: stamp): d2var
 
@@ -127,6 +132,10 @@ fun parse_d2explst (jsnv: jsonval): d2explst
 
 (* ****** ****** *)
 
+fun parse_d2exparg (jsonval): d2exparg
+
+(* ****** ****** *)
+
 fun parse_d2ecl (jsnv: jsonval): d2ecl
 fun parse_d2eclist (jsnv: jsonval): d2eclist
 
@@ -139,5 +148,7 @@ fun parse_fileref_d2eclist (filr: FILEref): d2eclist
 fun parse_filepath_d2eclist (path: string): d2eclist
 
 (* ****** ****** *)
+
+fun parse_json_file(path: string): jsonval
 
 (* end of [patsunj2_parsing.sats] *)

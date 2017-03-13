@@ -17,9 +17,21 @@
 //
 (* ****** ****** *)
 
-staload "./patsunj2_commarg.sats"
+#include
+"mydepies.hats"
 
 (* ****** ****** *)
+
+staload UN = "prelude/SATS/unsafe.sats"
+
+staload "./patsunj2_commarg.sats"
+staload "./patsunj2_parsing.sats"
+
+staload "{$ARGPARSE}/SATS/argparse.sats"
+
+staload "{$JSONC}/SATS/json.sats"
+staload "{$JSONC}/SATS/json_ML.sats"
+
 //
 (*
 dynload "patsunj2_synent2.dats"
@@ -54,21 +66,31 @@ patsunj2_commarg__dynload() where
 //
 (* ****** ****** *)
 
+#define ::  list_cons
+#define nil list_nil
+
 implement
-main0 (argc, argv) =
+main0 {n} (argc, argv) =
 {
 //
 val () =
 println! ("Hello from [patsunj2]!")
 //
-val arglst =
-  patsunj2_cmdline (argc, argv)
-//
-// HX: skipping argv[0]
-//
-val-~list_vt_cons(arg, arglst) = arglst
-//
-val ((*void*)) = patsunj2_commarglst (arglst)
+val p  = make_parser()
+val p' = p.add_param("-i", false)
+
+val results = parse(p', $UN.castvwtp1{arrayref(string,n)}(argv), argc)
+
+val input   = results["-i"]
+
+val js = parse_json_file(input)
+
+val- JSONobject(maps) = js
+
+val- ((_, s2cstjs) :: (_, s2varjs) :: (_, d2conjs) :: (_, d2cstjs) :: (_, d2varjs) :: (_, d2ecljs) :: _) = maps
+
+val ()     = parse_d2varmap(d2varjs)
+val d2ecls = parse_d2eclist(d2ecljs)
 //
 } (* end of [main] *)
 

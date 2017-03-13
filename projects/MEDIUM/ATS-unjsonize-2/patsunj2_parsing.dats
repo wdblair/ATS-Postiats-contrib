@@ -112,6 +112,16 @@ implement
 parse_string
   (jsnv0) = let val-JSONstring (str) = jsnv0 in str end
 //
+implement{t}
+parse_list
+  (jsnv0) = let
+  val- JSONarray(jsons) = jsnv0
+in
+  list_of_list_vt(
+    list_map_fun<jsonval><t>(jsons, lam d => parse_list$parse<t>(d))
+  )
+end
+
 (* ****** ****** *)
 
 implement
@@ -146,29 +156,6 @@ end // end of [parse_location]
 
 implement
 {a}(*tmp*)
-parse_list
-  (jsnv0, f) = let
-//
-val-JSONarray(jsnvs) = jsnv0
-//
-fun auxlst
-(
-  jsnvs: jsonvalist, f: jsonval -> a
-) : List0 (a) =
-  case+ jsnvs of
-  | list_cons
-      (jsnv, jsnvs) =>
-      list_cons{a}(f(jsnv), auxlst (jsnvs, f))
-  | list_nil () => list_nil ()
-//
-in
-  auxlst (jsnvs, f)
-end // end of [parse_list]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
 parse_option
   (jsnv0, f) = let
 //
@@ -179,6 +166,15 @@ in
   | list_nil () => None(*void*)
   | list_cons (jsnv, _) => Some{a}(f(jsnv))
 end // end of [parse_option]
+
+(* ****** ****** *)
+
+implement
+parse_json_file(path) = let
+  val js = json_object_from_file(path)
+in
+  json_object2val0(js)
+end
 
 (* ****** ****** *)
 //
@@ -192,6 +188,12 @@ local
 //
 #include
 "./PARSING/patsunj2_parsing_d2ecl.dats"
+#include
+"./PARSING/patsunj2_parsing_d2exp.dats"
+#include
+"./PARSING/patsunj2_parsing_p2at.dats"
+#include
+"./PARSING/patsunj2_parsing_s2exp.dats"
 #include
 "./PARSING/patsunj2_parsing_valkind.dats"
 #include

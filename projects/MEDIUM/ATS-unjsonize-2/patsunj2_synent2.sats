@@ -348,9 +348,6 @@ fun
 d2var_get_symbol(d2var): symbol
 
 (* ****** ****** *)
-
-
-(* ****** ****** *)
 //
 fun print_d2var : (d2var) -> void
 fun fprint_d2var : fprint_type(d2var)
@@ -435,9 +432,11 @@ datatype
 d2exp_node =
   | D2Ecst of d2cst
   | D2Evar of d2var
-  | D2Elam_dyn of (* boxed dynamic abstraction *)
+  | D2Esing of d2exp (* singleton *)
+  | D2Elam_dyn of    (* boxed dynamic abstraction *)
     (int(*lin*), int(*npf*), p2atlst(*arg*), d2exp(*body*))
   | D2Eapplst of (d2exp, d2exparglst)
+  | D2Eerror of ()
 // end of [d2exp_node]
 
 and d2exparg =
@@ -476,6 +475,8 @@ datatype
 d2ecl_node =
   | D2Cnone    of ()         // for something already erased
   | D2Clist    of d2eclist   // for list of declarations
+  | D2Cvaldecs of
+      (valkind, v2aldeclst) // non recursive value declarations
   | D2Cvaldecs_rec of
       (valkind, v2aldeclst)  // (recursive) value declarations
   | D2Cignored of ((*void*)) // for ignored declarations

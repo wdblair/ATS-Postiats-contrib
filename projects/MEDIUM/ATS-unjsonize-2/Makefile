@@ -123,7 +123,7 @@ patsunj2: $(OBJECTS) ; \
 #
 ######
 
-patsunj2_main_dats.o: patsunj2_main.dats; $(PATSCC2) -c $<
+patsunj2_main_dats.o: patsunj2_main.dats; $(PATSCC3) -c $<
 
 ######
 

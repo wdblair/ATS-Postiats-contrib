@@ -34,6 +34,7 @@ staload "{$JSONC}/DATS/json.dats"
 //
 local
 #include"{$JSONC}/DATS/json_ML.dats"
+#include"{$ARGPARSE}/DATS/argparse.dats"
 in (*nothing*) end // end of [local]
 //
 (* ****** ****** *)

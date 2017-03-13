@@ -4,3 +4,6 @@ JSONC_targetloc
 #define
 JSONC_targetloc
 "$PATSHOMELOCS/atscntrb-libjson-c"
+#define
+ARGPARSE_targetloc
+"$PATSHOMELOCS/atscntrb-ats-argparse"
