@@ -442,6 +442,7 @@ d2exp_node =
 and d2exparg =
   | D2EXPARGsta of (loc_t(*arg*), s2exparglst)
   | D2EXPARGdyn of (int(*npf*), loc_t(*arg*), d2explst)
+  | D2EXPARGerror of ()
 // end of [d2exparg]
 
 where

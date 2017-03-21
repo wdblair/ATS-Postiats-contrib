@@ -133,6 +133,7 @@ fun parse_d2explst (jsnv: jsonval): d2explst
 (* ****** ****** *)
 
 fun parse_d2exparg (jsonval): d2exparg
+fun parse_d2exparglst (jsonval): d2exparglst
 
 (* ****** ****** *)
 
